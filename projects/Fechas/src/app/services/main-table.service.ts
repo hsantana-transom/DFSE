@@ -17,7 +17,7 @@ export class MainTableService {
   }
   loadData() {
     const data = {
-      select: ['Fecha','CategoriaId','Categoria/Categoria','TopicoId','Topico/Topico', 'Id','NivelId','Nivel/Nivel','CriterioId','CriterioCorto', 'Created'],
+      select: ['Fecha','CategoriaId','Categoria/Categoria','TopicoId','Topico/Topico', 'Id','NivelId','Nivel/Nivel','CriterioId','CriterioCorto','Entrenador', 'Created'],
       top: 5000,
       expand:['Categoria','Topico','Nivel']
     };
@@ -38,7 +38,8 @@ export class MainTableService {
               topic: r.TopicoId,
               topicName: r.Topico.Topico,
               criteria: r.CriterioId,
-              criterioShort: r.CriterioCorto
+              criterioShort: r.CriterioCorto,
+              trainer: r.Entrenador
             };
             item.criteriaName= this.getCriterioText(item.id);
             item.createdLabel = datePipe.transform(item.created, 'yyyy-MM-dd hh:mm a');
@@ -65,7 +66,7 @@ export class MainTableService {
   loadSearch(search) {
     var fields=['fechaString','Categoria/Categoria','Topico/Topico', 'Id','Nivel/Nivel','CriterioCorto']
     const data = {
-      select: ['Fecha','fechaString','CategoriaId','Categoria/Categoria','TopicoId','Topico/Topico', 'Id','NivelId','Nivel/Nivel','CriterioId','CriterioCorto', 'Created'],
+      select: ['Fecha','fechaString','CategoriaId','Categoria/Categoria','TopicoId','Topico/Topico', 'Id','NivelId','Nivel/Nivel','CriterioId','CriterioCorto', 'Entranador', 'Created'],
       top: 5000,
       expand:['Categoria','Topico','Nivel'],
       filter:fields.map(f => `substringof('${search}',${f})`)//["substringof('" + search + "',Criterio)"] 
@@ -87,7 +88,8 @@ export class MainTableService {
               topic: r.TopicoId,
               topicName: r.Topico.Topico,
               criteria: r.CriterioId,
-              criterioShort: r.CriterioCorto
+              criterioShort: r.CriterioCorto,
+              trainer: r.Entrenador
               //criteriaName: r.Criterio.Criterio
             };
 

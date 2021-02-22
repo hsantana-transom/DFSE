@@ -165,6 +165,7 @@ export class MainFormComponent implements OnInit {
 
   submit() {
     const values = this.mainForm.value;
+    console.log(values);
     const data: any = {
       __metadata: { type: 'SP.Data.FechasListItem' },
       Fecha: values.fecha.toISOString(),
@@ -175,6 +176,7 @@ export class MainFormComponent implements OnInit {
       Periodo: this.yearSelected.toString(),
       fechaString: this.fechaString,
       CriterioCorto: this.shortCriterio,
+      Entrenador: values.entrenador
       //FechaInicial: values.fechaI.toISOString(),
       //FechaFinal: values.fechaF.toISOString()
     };
@@ -194,6 +196,7 @@ export class MainFormComponent implements OnInit {
   private setupForm() {
     this.mainForm = this.fb.group({
       id: null,
+      entrenador: null,
       fecha: [null,Validators.required],
       category: [null, Validators.required],
       topic: [null, Validators.required],
@@ -218,7 +221,8 @@ export class MainFormComponent implements OnInit {
         category: this.data.category,
         level: this.data.level,
         topic: this.data.topic,
-        criteria: this.data.criteria
+        criteria: this.data.criteria,
+        entrenador: this.data.trainer
       });
     }
   }
