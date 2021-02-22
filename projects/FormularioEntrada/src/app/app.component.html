@@ -1,0 +1,83 @@
+<script src="./uploadFile.js"></script>
+<form autocomplete="off" [formGroup]="mainForm">
+  <input formControlName="id" type="hidden" />
+  <mat-progress-bar mode="indeterminate" *ngIf='loading'></mat-progress-bar>
+  <mat-card style="width: 90%; margin: auto;">
+    <table style="width: 100%;">
+      <tr>
+        <td><strong>Usuario</strong><p>{{dataUser[0]?.Nombre}}</p></td>
+        <td><strong>Email</strong><p>{{dataUser[0]?.Email}}</p></td>
+      </tr>
+      <tr>
+        <td><strong>Periodo</strong><p>{{dataCourse[0]?.Periodo}}</p></td>
+        <td><strong>Fecha de Curso</strong><p>{{dataCourse[0]?.Fecha}}</p></td>
+      </tr>
+      <tr>
+        <td><strong>Categoria</strong><p>{{dataCourse[0]?.Categoria}}</p></td>
+        <td><strong>Nivel</strong><p>{{dataCourse[0]?.Nivel}}</p></td>
+      </tr>
+      
+      <tr>
+        <td><strong>Tópico</strong><p style="font-size: 11px;">{{dataCourse[0]?.Topico}}</p> </td>
+      </tr>
+      <tr>
+        <td style="width: 50%;"><strong>Criterio</strong><p style="font-size: 9px;"> {{dataCourse[0]?.Criterio}}</p></td>
+      </tr>
+      <tr>
+        <td><strong>Estatus</strong><p>{{status}}</p></td>
+        <td><strong>Fecha envio a aprobación:</strong><p>{{fechaAp ? fechaAp : "No asignada"}}</p></td>
+      </tr>
+    </table>
+  </mat-card>
+  <br/>
+  <mat-card style="width: 90%; margin: auto;">
+    <mat-form-field style="width: 90%;" >
+      <input  formControlName="description" matInput maxlength="255" placeholder="Descripción evidencia" >
+      <mat-hint *ngIf="mainForm.get('description').value?.length>100">{{mainForm.get('description').value}}</mat-hint>
+    </mat-form-field>
+    <br/><br/>
+    <mat-form-field style="width: 90%;" >
+      <input formControlName="name" matInput maxlength="255" placeholder="Nombre DFSE">
+      <mat-hint *ngIf="mainForm.get('name').value?.length>100">{{mainForm.get('name').value}}</mat-hint>
+    </mat-form-field>
+    <br/><br/>
+    <mat-form-field style="width: 90%;">
+      <input formControlName="com1" matInput maxlength="255" placeholder="Comentarios DFSE contraparte">
+      <mat-hint *ngIf="mainForm.get('com1').value?.length>100">{{mainForm.get('com1').value}}</mat-hint>
+    </mat-form-field>
+    <br/><br/>
+    <mat-form-field style="width: 90%;">
+      <input formControlName="com2" matInput maxlength="255" placeholder="Comentarios DFSE factory">
+      <mat-hint *ngIf="mainForm.get('com2').value?.length>100">{{mainForm.get('com2').value}}</mat-hint>
+    </mat-form-field>
+    <br/><br/>
+
+    <div>
+      <input (change)="readFile($event)" #fileInput style="display: none;" type="file"/>
+      <button [disabled]="!bandUser || status=='Aprobación' || status=='Aceptado' || bandUploadingFile" (click)="fileInput.value='';fileInput.click()" mat-raised-button>Seleccionar archivo</button>
+      <div style="width:60%; display:block;float:right">
+        <button color="primary" *ngIf="bandButtonToApprove" [disabled]="files.length==0 || bandUploadingFile" (click)="onSubmit('aprobacion')" mat-raised-button style="margin-left:5px;margin-right: 5px;" >Solicitar Aprobación</button>
+        <button color="primary" *ngIf="bandButtonSave" (click)="onSubmit('guardar')" [disabled]="bandUploadingFile" mat-raised-button style="margin-left:5px;margin-right: 5px;">Guardar</button>
+        <button color="primary" *ngIf="bandButtonApproval" (click)="onSubmit('aprobado')" mat-raised-button style="margin-left:5px;margin-right: 5px;">Aprobar</button>
+        <button color="warn"  *ngIf="bandButtonReject" (click)="onSubmit('rechazado')" mat-raised-button style="margin-left:5px;margin-right: 5px;">Rechazar</button>
+
+      </div>
+      <div >
+        <span *ngIf="bandFileRepeated" style="color:red">*Archivo repetido</span>
+        <table>
+          <tr  *ngFor="let f of files;let i=index">
+            <td><span><a href="/sites/CC140991/Documents/{{filesFolder}}/{{f}}">{{f}}</a></span></td>
+            <td>
+              <button [disabled]="!bandUser || status=='Aprobación' || status=='Aceptado' || bandUploadingFile" (click)="onDelete(i)" #onDeleteButton mat-icon-button matTooltip="Eliminar">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+      </table>
+      </div>
+    </div>
+  </mat-card>
+  <mat-progress-bar mode="indeterminate" *ngIf='loading'></mat-progress-bar>
+</form>
+
+

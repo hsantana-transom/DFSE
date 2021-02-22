@@ -1,0 +1,17 @@
+<form autocomplete="off" [formGroup]="searchForm">
+    <div style="float: right;">
+        <mat-form-field appearance="outline">
+          <mat-label>Buscar</mat-label>
+          <input matInput formControlName="search">
+        </mat-form-field>
+        <button mat-mini-fab type="button" [disabled]="!bandSearch" color="primary" (click)="SearchData()">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button mat-mini-fab *ngIf="bandClear" type="button" color="secondary" (click)="clearSearch()">
+            <mat-icon>clear</mat-icon>
+          </button>
+      </div>
+</form>
+<shared-data-table [columns]="columns" [dataSource]="dataSource" [displayedColumns]="displayedColumns" *ngIf="!loading" [overrideOperations]="true" [operations]="operationEdit"
+(operationEvent)="onOperation($event)"></shared-data-table>
+<shared-progress-bar mode="indeterminate" *ngIf="loading"></shared-progress-bar>

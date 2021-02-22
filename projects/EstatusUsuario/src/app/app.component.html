@@ -1,0 +1,103 @@
+<mat-progress-bar mode="indeterminate" *ngIf='loading'></mat-progress-bar>
+<div *ngIf="dataUser[0]?.Rol=='USUARIO'">
+  <div>
+    <table>
+      <tr>
+        <td><strong>Nombre:</strong> {{dataUser[0]?.Nombre}}</td>
+        <td><strong>Email:</strong>{{dataUser[0]?.Email}}</td>
+        <td><strong>Porcentaje anual completado:</strong> {{porcentajeGlobal/nCourses | number: '1.2-2'}} %</td>
+      </tr>
+    </table>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+
+    <ng-container matColumnDef="Categoria">
+      <th mat-header-cell *matHeaderCellDef> Categoría </th>
+      <td mat-cell *matCellDef="let element" style="font-size: 9px;"> {{element.Categoria}} </td>
+    </ng-container>
+
+ 
+    <ng-container matColumnDef="Nivel">
+      <th mat-header-cell *matHeaderCellDef> Nivel </th>
+      <td mat-cell *matCellDef="let element" style="font-size: 9px;"> {{element.Nivel}} </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="Topico">
+      <th mat-header-cell *matHeaderCellDef> Tópico </th>
+      <td mat-cell *matCellDef="let element" style="font-size: 10px;"> {{element.Topico}} </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="Criterio">
+      <th mat-header-cell *matHeaderCellDef> Criterio </th>
+      <td mat-cell *matCellDef="let element" style="font-size: 10px;"> {{element.Criterio}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Porcentaje">
+      <th mat-header-cell *matHeaderCellDef> Porcentaje Avance </th>
+      <td mat-cell *matCellDef="let element" [ngStyle]="{color: element.porcentaje==='0' ? 'red' : 'green'}"> {{element.porcentaje}} </td>
+      
+    </ng-container>
+    <ng-container matColumnDef="Link">
+      <th mat-header-cell *matHeaderCellDef> Subir Evidencia </th>
+      <td mat-cell *matCellDef="let element" > <a href="{{element.link}}"> <mat-icon>cloud_upload</mat-icon></a> </td>
+      
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+<!--------------------------------------------------------------------------------------
+                               APROBADOR
+---------------------------------------------------------------------------------------->
+<div *ngIf="dataUser[0]?.Rol=='APROBADOR'">
+  
+  <div>
+    <table>
+      <tr>
+        <td><strong>Aprobador:</strong> {{dataUser[0]?.Nombre}}</td>
+        <td><strong>Email:</strong>{{dataUser[0]?.Email}}</td>
+      </tr>
+    </table>
+    <h2>Evidencia que requiere mi aprobación</h2>
+  </div>
+  <div *ngIf="dataEvidenciaAprobador.length>0">
+    <table mat-table [dataSource]="dataEvidenciaAprobador" class="mat-elevation-z8">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      
+      <ng-container matColumnDef="usuario">
+        <th mat-header-cell *matHeaderCellDef> Usuario </th>
+        <td mat-cell *matCellDef="let element" > {{element.User.Nombre}} </td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element" > {{element.User.Email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="curso">
+        <th mat-header-cell *matHeaderCellDef> Curso </th>
+        <td mat-cell *matCellDef="let element" > {{element.IdCurso}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="link">
+        <th mat-header-cell *matHeaderCellDef> Ver Evidencia </th>
+        <td mat-cell *matCellDef="let element" >  <a href="{{element.link}}"> <mat-icon>visibility</mat-icon></a></td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsAprobador"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsAprobador;"></tr>
+    </table>
+  </div>
+  <div *ngIf="dataEvidenciaAprobador.length==0">
+    <h1 style="color: black"><strong>No tienes aprobaciones pendientes</strong></h1>
+  </div>
+</div>

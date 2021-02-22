@@ -1,0 +1,4 @@
+<shared-form-dialog (closeEvent)="onClose()" [disabled]="loading || mfc?.mainForm.pristine || !mfc?.mainForm.valid || !mfc.mainImage || !mfc.secondaryImage"
+  [loading]="loading" (submitEvent)="onSubmit()" [title]="title">
+  <ds-main-form [data]="data"></ds-main-form>
+</shared-form-dialog>

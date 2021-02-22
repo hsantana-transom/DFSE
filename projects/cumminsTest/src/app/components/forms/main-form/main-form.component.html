@@ -1,0 +1,10 @@
+<form autocomplete="off" [formGroup]="mainForm">
+  <input formControlName="id" type="hidden" />
+  <mat-form-field style="width: 100%;">
+    <input formControlName="title" matInput maxlength="80" placeholder="Título *" />
+    <mat-error>
+      Este campo es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+</form>

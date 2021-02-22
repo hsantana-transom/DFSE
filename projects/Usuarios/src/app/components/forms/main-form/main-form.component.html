@@ -1,0 +1,139 @@
+<form autocomplete="off" [formGroup]="mainForm">
+    <input formControlName="id" type="hidden" />
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxFlex="50%">
+            <mat-form-field >
+                <mat-label>Tipo de Usuario *</mat-label>
+                <mat-select formControlName="tipo" (selectionChange)="VerifyType($event.value)">
+                <mat-option value="INTERNO">INTERNO</mat-option>
+                <mat-option value="EXTERNO">EXTERNO</mat-option>
+                </mat-select>
+                <mat-error>
+                    Este campo es obligatorio
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div  fxFlex="50%">
+            <mat-form-field >
+                <mat-label>Estatus *</mat-label>
+                <mat-select formControlName="status">
+                <mat-option value="ACTIVO">ACTIVO</mat-option>
+                <mat-option value="INACTIVO">INACTIVO</mat-option>
+                </mat-select>
+                <mat-error>
+                    Este campo es obligatorio
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Información del Usuario
+            </mat-panel-title>
+            <mat-panel-description>
+                {{this.mainForm.get('email').value}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+            <mat-form-field style="width: 40%">
+                <mat-label *ngIf="!bandTipo">WWID</mat-label>
+                <mat-label *ngIf="bandTipo">WWID *</mat-label>
+                <input formControlName="wwid" matInput maxlength="10" />
+                <mat-error>
+                    Este campo es obligatorio
+                </mat-error>
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <div fxFlex="50%" >
+                    <mat-form-field style="width: 90%">
+                        <input formControlName="name" matInput maxlength="100" placeholder="Nombre *" />
+                        <mat-error>
+                        Este campo es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                </div> 
+                <div fxFlex="50%" >
+                    <mat-form-field style="width: 90%">
+                        <input formControlName="email" matInput maxlength="50" placeholder="Email *" />
+                        <mat-error>
+                            <ng-container *ngIf="userEmail.hasError('required')">Este campo es obligatorio</ng-container>
+                            <ng-container *ngIf="userEmail.hasError('email')">Por favor introduce una cuenta de Email válida</ng-container>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <div fxFlex="50%" >
+                    <mat-form-field appearance="fill" style="width:90%">
+                        <mat-label>Rol *</mat-label>
+                        <mat-select formControlName='rol' (selectionChange)="getSelectedRol($event)">
+                        <mat-option *ngFor="let r of roles"  [value]="r.Id">
+                            {{r.Nombre}}
+                        </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            Este campo es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" >
+                    <mat-form-field appearance="fill" style="width:90%">
+                        <mat-label>Código de región *</mat-label>
+                        <mat-select formControlName='region'>
+                        <mat-option *ngFor="let reg of regiones"  [value]="reg.Id">
+                            {{reg.Codigo}}
+                        </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            Este campo es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <p *ngIf="bandDuplicado" style="color: red; font-size: 11px;">
+                *Este wwid ya esta registrado
+            </p>
+            <p *ngIf="bandDuplicadoEmail" style="color: red; font-size: 11px;">
+                *Este Email ya esta registrado
+            </p>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                Información de Aprobador
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{this.mainForm.get('emailSupervisor').value}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field style="width: 40%">
+                <input formControlName="wwidSupervisor" matInput maxlength="10" placeholder="WWID Aprobador" />
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <div fxFlex="50%">
+                    <mat-form-field style="width: 90%" >
+                        <input formControlName="supervisor" matInput maxlength="100" placeholder="Nombre de Aprobador *" />
+                        <mat-error>
+                        Este campo es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%">
+        
+                    <mat-form-field style="width: 90%">
+                        <input formControlName="emailSupervisor" matInput maxlength="200" placeholder="Email Aprobador *" />
+                        <mat-error >
+                            <ng-container *ngIf="superEmail.hasError('required')">Este campo es obligatorio</ng-container> 
+                            <ng-container *ngIf="superEmail.hasError('email')">Por favor introduce una cuenta de Email válida</ng-container> 
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-expansion-panel>
+        
+      </mat-accordion>
+    
+  </form>
+
+

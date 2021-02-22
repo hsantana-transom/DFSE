@@ -1,0 +1,81 @@
+<form autocomplete="off" [formGroup]="mainForm">
+    <input formControlName="id" type="hidden" />
+    <div>
+        <mat-form-field >
+            <input formControlName="fecha" [min]="minDate" [matDatepicker]="fecha" matInput placeholder="Fecha de curso *" readonly />
+            <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+            <mat-datepicker #fecha></mat-datepicker>
+            <mat-error>
+                Este campo es obligatorio
+            </mat-error>
+        </mat-form-field >
+        <p *ngIf="bandDuplicado" style="color: red; font-size: 11px;">
+            *Esta fecha ya existe
+        </p>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column">
+    <div fxFlex="50%">
+        <mat-form-field appearance="fill" style="width:50%">
+            <mat-label>Categoría *</mat-label>
+            <mat-select formControlName='category' (selectionChange)="getSelectedCategory($event)">
+            <mat-option *ngFor="let cat of categories"  [value]="cat.Id" style="font-size: 12px;">
+                {{cat.Categoria}}
+            </mat-option>
+            </mat-select>
+            <mat-error>
+                Este campo es obligatorio
+            </mat-error>
+            <mat-hint>{{categoryText}}</mat-hint>
+        </mat-form-field>
+    </div>
+    <div fxFlex="50%">
+        <mat-form-field appearance="fill">
+            <mat-label>Nivel *</mat-label>
+            <mat-select formControlName='level' (selectionChange)="getSelectedLevel($event)">
+            <mat-option *ngFor="let lev of levels" [value]="lev.Id">
+                {{lev.Nivel}}
+            </mat-option>
+            </mat-select>
+            <mat-error>
+                Este campo es obligatorio
+            </mat-error>
+            <mat-hint>{{levelText}}</mat-hint>
+        </mat-form-field>
+        </div>
+    </div>
+    <br />
+    <div>
+      <mat-form-field appearance="fill" style="width:90%">
+        <mat-label>Tópico *</mat-label>
+        <mat-select formControlName='topic' (selectionChange)="getSelectedTopic($event)">
+          <mat-option *ngFor="let top of topics" [value]="top.Id" style="font-size: 10px;">
+            {{top.Topico}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+            Este campo es obligatorio
+        </mat-error>
+        <mat-hint>{{topicText}}</mat-hint>
+      </mat-form-field>
+    </div>
+    <br />
+    <div>
+      <mat-form-field appearance="fill" style="width: 90%;">
+        <mat-label>Criterio *</mat-label>
+        <mat-select formControlName='criteria' (selectionChange)="getSelectedCriteria($event)">
+          <mat-option *ngFor="let crit of criterias" [value]="crit.Id" style="font-size: 10px;">
+            {{crit.Criterio}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+            Este campo es obligatorio
+        </mat-error>
+        <mat-hint>{{criteriaText}}</mat-hint>
+      </mat-form-field>
+    </div>
+    <br/>
+  </form>
+
+
+  
+

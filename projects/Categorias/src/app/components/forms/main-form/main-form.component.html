@@ -1,0 +1,24 @@
+<form autocomplete="off" [formGroup]="mainForm">
+    <input formControlName="id" type="hidden" />
+    <mat-form-field style="width: 100%;">
+      <input formControlName="name" matInput maxlength="100" placeholder="Categoría *" />
+      <mat-error>
+        Este campo es obligatorio
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field >
+        <mat-label>Estatus *</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="ACTIVO">ACTIVO</mat-option>
+          <mat-option value="INACTIVO">INACTIVO</mat-option>
+        </mat-select>
+        <mat-error>
+            Este campo es obligatorio
+          </mat-error>
+      </mat-form-field>
+  
+  </form>
+   <p *ngIf="bandDuplicado" style="color: red; font-size: 11px;">
+      *Esta categoría ya existe
+  </p>
+  

@@ -1,0 +1,38 @@
+<form autocomplete="off" [formGroup]="mainForm">
+    <input formControlName="id" type="hidden" />
+    <mat-form-field style="width: 100%;">
+      <input formControlName="name" matInput maxlength="100" placeholder="Región *" />
+      <mat-error>
+        Este campo es obligatorio
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;">
+        <input formControlName="code" matInput maxlength="50" placeholder="Código de región *" />
+        <mat-error>
+          Este campo es obligatorio
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;">
+      <input formControlName="country" matInput maxlength="100" placeholder="País" />
+  </mat-form-field>
+    <mat-form-field >
+        <mat-label>Estatus *</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="ACTIVO">ACTIVO</mat-option>
+          <mat-option value="INACTIVO">INACTIVO</mat-option>
+        </mat-select>
+        <mat-error>
+            Este campo es obligatorio
+          </mat-error>
+      </mat-form-field>
+  
+  </form>
+   <p *ngIf="bandDuplicado" style="color: red; font-size: 11px;">
+      *Esta región ya existe
+  </p>
+  <p *ngIf="bandDuplicadoCode" style="color: red; font-size: 11px;">
+    *Este código ya existe
+  </p>
+
+  
+

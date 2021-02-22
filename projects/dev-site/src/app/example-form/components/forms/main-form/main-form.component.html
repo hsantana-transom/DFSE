@@ -1,0 +1,65 @@
+<form autocomplete="off" [formGroup]="mainForm">
+  <input formControlName="id" type="hidden" />
+  <mat-form-field>
+    <input formControlName="title" matInput maxlength="255" placeholder="Título *" />
+    <mat-error>
+      Este campo es obligatorio
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Descripción corta *</mat-label>
+    <textarea formControlName="summary" matInput maxlength="5000" rows="1"></textarea>
+    <mat-error>
+      Este campo es obligatorio
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Noticia completa *</mat-label>
+    <textarea formControlName="content" matInput maxlength="5000" rows="1"></textarea>
+    <mat-error>
+      Este campo es obligatorio
+    </mat-error>
+  </mat-form-field>
+  <div fxLayout="row" fxLayout.xs="column">
+    <div fxFlex="50%">
+      <mat-form-field>
+        <input formControlName="newsDate" [matDatepicker]="newsDate" matInput placeholder="Fecha noticia *" readonly />
+        <mat-datepicker-toggle matSuffix [for]="newsDate"></mat-datepicker-toggle>
+        <mat-datepicker #newsDate></mat-datepicker>
+        <mat-error>
+          Este campo es obligatorio
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50%">
+      <mat-form-field>
+        <input formControlName="order" matInput placeholder="Orden *" />
+        <mat-error>
+          <ng-container *ngIf="order.hasError('required')">Este campo es obligatorio</ng-container>
+          <ng-container *ngIf="order.hasError('pattern')">Valor numérico inválido</ng-container>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-form-field class="chip-list">
+    <mat-chip-list #chipList aria-label="Búsqueda">
+      <mat-chip *ngFor="let item of keywords" [removable]="true" (removed)="removeKeyword(item)">
+        {{ item }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Palabras clave"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addKeyword($event)">
+    </mat-chip-list>
+  </mat-form-field>
+  <div fxLayout="row" fxLayout.xs="column">
+    <div fxFlex="50%">
+      <shared-image-upload-control label="Imagen principal *" [file]="mainImage" (fileChange)="mainImage = $event"></shared-image-upload-control>
+    </div>
+    <div fxFlex="50%">
+      <shared-image-upload-control label="Imagen secundaria *" [file]="secondaryImage" (fileChange)="secondaryImage = $event"></shared-image-upload-control>
+    </div>
+  </div>
+</form>

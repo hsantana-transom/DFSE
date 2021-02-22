@@ -1,0 +1,16 @@
+<section>
+  <strong>{{ label }}</strong>
+  <br />
+  <br />
+  <input (change)="onFileChanged($event)" #fileTnput style="display: none;" type="file" accept="image/x-png,image/jpeg" />
+  <button (click)="fileTnput.click()" mat-raised-button *ngIf="!file">
+    Seleccionar imagen
+  </button>
+  <span>{{ file?.name }}</span>
+  <button (click)="onDelete()" mat-icon-button matTooltip="Eliminar" *ngIf="file">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <div>
+    <span style="color: red; font-size: 10px;" *ngIf="bandImg">*Las imágenes que tienen un tamaño superior a 750 KB no se podrán cargar.</span>
+  </div>
+</section>

@@ -1,0 +1,4 @@
+<shared-data-table [columns]="columns" [dataSource]="dataSource" [displayedColumns]="displayedColumns" *ngIf="!loading"
+  (operationEvent)="onOperation($event)"></shared-data-table>
+<shared-progress-bar mode="indeterminate" *ngIf="loading"></shared-progress-bar>
+

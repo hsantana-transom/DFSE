@@ -1,0 +1,40 @@
+<form autocomplete="off" [formGroup]="mainForm">
+    <input formControlName="id" type="hidden" />
+    <mat-form-field style="width: 100%;">
+      <input formControlName="name" matInput maxlength="50" placeholder="Periodo *" />
+      <mat-error>
+        <ng-container *ngIf="periodo.hasError('required')">Este campo es obligatorio</ng-container>
+        <ng-container *ngIf="periodo.hasError('pattern')">Ingresa solo números</ng-container>
+      </mat-error>
+    </mat-form-field>
+    <div fxLayout="row" fxLayout.xs="row">
+        <div fxFlex="50%">
+            <mat-form-field >
+                <input formControlName="fechaI" [min]="minDate" [matDatepicker]="fechaI" matInput placeholder="Fecha Inicio *" readonly />
+                <mat-datepicker-toggle matSuffix [for]="fechaI"></mat-datepicker-toggle>
+                <mat-datepicker #fechaI></mat-datepicker>
+                <mat-error>
+                    Este campo es obligatorio
+                </mat-error>
+            </mat-form-field >
+        </div>
+       
+        <div fxFlex="50%">
+            <mat-form-field >
+                <input formControlName="fechaF" [min]="minDate" [matDatepicker]="fechaF" (ValueChange)="verificaFecha($event)" matInput placeholder="Fecha Final *" readonly />
+                <mat-datepicker-toggle matSuffix [for]="fechaF" ></mat-datepicker-toggle>
+                <mat-datepicker #fechaF></mat-datepicker>
+                <mat-error>
+                    Este campo es obligatorio
+                </mat-error>
+            </mat-form-field >
+        </div>
+    </div>
+  </form>
+   <p *ngIf="bandDuplicado" style="color: red; font-size: 11px;">
+      *Este Periodo ya existe
+  </p>
+  <p *ngIf="bandFechas" style="color: red; font-size: 11px;">
+    *La fecha final debe de ser mayor a la Inicial
+</p>
+  

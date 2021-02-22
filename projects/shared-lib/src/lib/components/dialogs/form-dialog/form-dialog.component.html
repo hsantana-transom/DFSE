@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+  <ng-content></ng-content>
+</div>
+<div mat-dialog-actions>
+  <button (click)="onSubmit()" color="primary" [disabled]="disabled" mat-raised-button *ngIf="showSubmit">
+    {{ submitText }}
+  </button>
+  <button (click)="onClose()" [disabled]="loading" mat-raised-button>
+    {{ cancelText }}
+  </button>
+  <shared-progress-spinner *ngIf="loading"></shared-progress-spinner>
+</div>
