@@ -5,9 +5,9 @@ import { FormsService, MessageService, SharepointIntegrationService } from 'shar
 import {MainTableService} from './services/main-table.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { bandFileUp } from './uploadFile.js';
+import { bandFileUp } from './uploadFile2.js';
 import { ThrowStmt } from '@angular/compiler';
-declare var readFile:any;
+declare var uploadFile:any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -41,6 +41,8 @@ export class AppComponent implements OnInit{
   filesFolder:string;
   varFromJsFile;
   fechaAp;
+  bandTest;
+  intTime;
   constructor(
     private excelService:MainTableService,
     private sis: SharepointIntegrationService, 
@@ -50,6 +52,7 @@ export class AppComponent implements OnInit{
     private snackbar: MatSnackBar
     )
   {
+    localStorage.removeItem('fileUp');
     this.url=window.location.pathname.split('/');
     this.IdFecha= this.url[this.url.length - 1];
     this.IdUser= this.url[this.url.length - 2];
@@ -59,6 +62,7 @@ export class AppComponent implements OnInit{
   }
   ngOnInit() {
     this.loading=true;
+    
     this.filesFolder='Curso ' +  this.IdFecha + '-' + this.IdUser;
     this.getCourse();
     this.setupForm();
@@ -78,7 +82,8 @@ export class AppComponent implements OnInit{
       {
         this.dataEntrada=res;
         //console.log(this.dataEntrada);
-        this.files= this.dataEntrada.value[0].Documentos.split(',');
+        if(this.dataEntrada.value[0].Documentos!=null)
+          this.files= this.dataEntrada.value[0].Documentos.split(',');
         this.mainForm.patchValue({
           id: this.dataEntrada.value[0].Id,
           description:this.dataEntrada.value[0].Descripcion,
@@ -145,7 +150,7 @@ export class AppComponent implements OnInit{
   getCourse()
   {
     const data={
-      select:['Fecha','Categoria/Categoria','Topico/Topico', 'Id','Nivel/Nivel','CriterioId','Periodo'],
+      select:['Fecha','Categoria/Categoria','Topico/Topico', 'Id','Nivel/Nivel','CriterioId','Periodo','Entrenador'],
       top:1,
       filter:['Id eq ' + this.IdFecha],
       expand:['Categoria','Topico','Nivel'],
@@ -169,7 +174,8 @@ export class AppComponent implements OnInit{
       Nivel: r.Nivel.Nivel,
       Topico: r.Topico.Topico,
       CriterioId: r.CriterioId,
-      Periodo: r.Periodo
+      Periodo: r.Periodo,
+      Entrenador: r.Entrenador
     }))
   }
   getCriterios(c)
@@ -242,16 +248,94 @@ export class AppComponent implements OnInit{
   enableFields() {
     this.fs.enableFields(this.mainForm);
   }
-
+  ngOnDestroy()
+  {
+    clearInterval(this.intTime);
+    
+  }
   readFile(event)
   {
-    this.varFromJsFile = window["bandFileUp"];
-    this.snackbar.open('Subiendo Archivo...', null, { duration:1000 });
-    console.log(this.varFromJsFile);
+    this.bandUploadingFile=true;
+    console.log(event);
+    const file= event.target.files[0].name;
+
+    if(this.files.length>0)
+    {
+      for(var i=0; i<this.files.length;i++)
+      {
+        console.log(this.files[i]);
+        if(this.files[i].trim()== file.trim())
+        {
+         
+          this.bandFileRepeated=true;
+          this.bandUploadingFile=false;
+          break;
+        }
+        else
+          this.bandFileRepeated=false;
+      }
+    }
+
+    if(this.bandFileRepeated==false)
+    {
+      this.loading=true;
+      this.snackbar.open('Subiendo Archivo...', null, { duration:1000 });
+      uploadFile(file.name,this.filesFolder)
+      this.intTime=setInterval(() =>{
+        var bFile;
+        bFile=localStorage.getItem('fileUp');
+        console.log(bFile);
+        this.snackbar.open('Subiendo Archivo...', null, { duration:1000 });
+        if(bFile=='true')
+        {
+          this.snackbar.open('Archivo cargado correctamente!', null, { duration:1000 });
+          this.files.push(file);
+          clearInterval(this.intTime);
+          this.bandUploadingFile=false;
+          this.loading=false;
+        }
+        if(bFile=='false')
+        {
+          this.snackbar.open('Error al cargar el archivo.Intentalo de nuevo', null, { duration:1000 });
+          this.bandUploadingFile=false;
+          this.loading=false;
+          clearInterval(this.intTime);
+
+        }
+      },2000)
+      
+
+      
+    }
+    
+    //this.files.push(file);
+    /*console.log(this.varFromJsFile);
     this.bandUploadingFile=true;
     this.loading=true;
     const file= event.target.files[0];
+    var fileName= file.name;
     const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = () =>{
+      this.file={
+        name:fileName,
+        content:reader.result
+      }
+
+    }
+    console.log('this.file');
+    console.log(file);
+    console.log(reader);
+    return this.sis.getFormDigest().pipe(
+      switchMap(formDigest => {
+          return this.sis.saveFile2(reader.result,formDigest, '4')
+      })
+    ).subscribe(r => {
+      this.loading=false
+    });
+    */
+/*
+    //const reader = new FileReader();
     var fileName= file.name;
     
     console.log(fileName);
@@ -296,6 +380,21 @@ export class AppComponent implements OnInit{
         }
         if(this.varFromJsFile==false)
         {
+          this.snackbar.open('Subiendo Archivo...', null, { duration:1000 });
+          var timetowait;
+          if(file.size>1048576 && file.size<2097152)
+            timetowait=10000;
+          if(file.size>2097152 && file.size<3145728)
+            timetowait=20000;
+          if(file.size>3145728 && file.size<4194304)
+            timetowait=30000;
+          if(file.size>4194304 && file.size<5242880)
+            timetowait=35000;
+          if(file.size>5242880 && file.size<10485760)
+            timetowait= 60000
+          if(file.size>10485760)
+          timetowait= 120000
+
           setTimeout(() => {
             this.varFromJsFile = window["bandFileUp"];
             console.log(this.varFromJsFile);
@@ -320,11 +419,12 @@ export class AppComponent implements OnInit{
               this.loading=false;
               this.snackbar.open('Error al subir el archivo, intentalo nuevamente', null, { duration:3000 });
             }
-          }, 5000);
+          }, timetowait);
         }
-      }, 2000);
+      }, 5000);
      
     }
+    */
     
   }
   onDelete(index)
@@ -436,6 +536,7 @@ export class AppComponent implements OnInit{
       description:null,
       com1:null,
       com2:null,
+      bandFile:null,
     });
     this.loading=false;
   }

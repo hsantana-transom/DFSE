@@ -45,12 +45,13 @@ export class MainFormComponent implements OnInit {
     this.isNew = this.data ? false : true;
     this.setupForm();
     this.getAllData();
-    this.mainForm.get("name").valueChanges.subscribe(v=>{
+    /*this.mainForm.get("name").valueChanges.subscribe(v=>{
       this.checkDuplicate(v,"name");
     });
     this.mainForm.get("code").valueChanges.subscribe(v=>{
       this.checkDuplicate(v,"code");
     });
+  */
   }
   // Custom public methods
   getAllData()

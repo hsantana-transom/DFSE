@@ -1,7 +1,7 @@
 <form autocomplete="off" [formGroup]="mainForm">
     <input formControlName="id" type="hidden" />
     <mat-form-field style="width: 100%;">
-      <input formControlName="name" matInput maxlength="200" placeholder="Tópico *" />
+      <input formControlName="name" matInput maxlength="255" placeholder="Tópico *" />
       <mat-error>
         Este campo es obligatorio
       </mat-error>

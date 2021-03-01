@@ -49,7 +49,7 @@ export class AppComponent implements OnInit{
     });
   }
   exportAsXLSX():void {
-    this.excelService.exportAsExcelFile(this.data, 'Periodo');
+    this.excelService.exportAsExcelFile(this.data, 'Cursos aprobados - Periodo');
   }
   verificaFechas()
   {
@@ -64,11 +64,12 @@ export class AppComponent implements OnInit{
   getData()
   {
     this.loading=true;
+    this.data=[];
     var data
     if(this.dataUser[0].Rol=="APROBADOR")
     {
         data={
-        select:['Nombre','Descripcion','ComentariosContra', 'Id','ComentariosFactory','IdFecha','Documentos','UserIdId','IdCursoId','IdCurso/Fecha','UserId/Nombre','UserId/Email'],
+        select:['Nombre','Descripcion','ComentariosContra', 'Id','ComentariosFactory','IdFecha','Documentos','UserIdId','IdCursoId','IdCurso/Fecha','IdCurso/Entrenador','UserId/Nombre','UserId/Email'],
         top:5000,
         filter:["IdCurso/Fecha ge '" + this.mainForm.get('fecha1').value.toISOString() + "'", 
         "IdCursoId/Fecha le '" + this.mainForm.get('fecha2').value.toISOString() + "'",
@@ -81,7 +82,7 @@ export class AppComponent implements OnInit{
     if(this.dataUser[0].Rol=="USUARIO")
     {
         data={
-        select:['Nombre','Descripcion','ComentariosContra', 'Id','ComentariosFactory','IdFecha','Documentos','UserIdId','IdCursoId','IdCurso/Fecha','UserId/Nombre','UserId/Email'],
+        select:['Nombre','Descripcion','ComentariosContra', 'Id','ComentariosFactory','IdFecha','Documentos','UserIdId','IdCursoId','IdCurso/Fecha','IdCurso/Entrenador','UserId/Nombre','UserId/Email'],
         top:5000,
         filter:["IdCurso/Fecha ge '" + this.mainForm.get('fecha1').value.toISOString() + "'", 
         "IdCursoId/Fecha le '" + this.mainForm.get('fecha2').value.toISOString() + "'",
@@ -98,6 +99,7 @@ export class AppComponent implements OnInit{
       map((cursos: any) => this.getCursosInfo(cursos.value)),
       switchMap((cursos:any) => this.getCursosData(cursos)),
       switchMap((cursos:any) => this.getCriterioInfo(cursos)),
+      
     ).subscribe(response =>{
       console.log(response);
       this.data= response;
@@ -113,20 +115,25 @@ export class AppComponent implements OnInit{
   }
   getCursosInfo(cursos:any)
   {
+ 
     const datePipe = new DatePipe('en-US');
-    return cursos.map(c => ({
-      NombreDFSE: c.Nombre,
-      Descripcion: c.Descripcion,
-      ComentariosContraparte: c.ComentariosContra,
-      ComentariosFactory: c.ComentariosFactory,
-      Documentos: c.Documentos,
-      FechaCurso: datePipe.transform(c.IdCurso.Fecha, 'dd-MM-yyyy'),
-      IdCurso: c.IdCursoId,
-      Usuario: c.UserId.Nombre,
-      Email: c.UserId.Email,
-      
+    if(cursos)
+    {
+      return cursos.map(c => ({
+        IdCurso: c.IdCursoId,
+        FechaCurso: datePipe.transform(c.IdCurso.Fecha, 'dd-MM-yyyy'),
+        Entrenador: c.IdCurso.Entrenador,
+        NombreDFSE: c.Nombre,
+        Descripcion: c.Descripcion,
+        ComentariosContraparte: c.ComentariosContra,
+        ComentariosFactory: c.ComentariosFactory,
+        Documentos: c.Documentos,
+        Usuario: c.UserId.Nombre,
+        Email: c.UserId.Email,
+        
 
-    }))
+      }))
+    }
   }
   fixEvidenciasInfo(cursos:any[])
   {
@@ -142,23 +149,38 @@ export class AppComponent implements OnInit{
   }
   getCursosData(cursos: any[])
   {
-  
-    const cursoinfo= cursos.map(c => this.excelService.getCursosInfo(c.IdCurso));
-    return forkJoin(cursoinfo)
-    .pipe(
-      tap(curso => cursos.forEach((c,index)=> c.curso=curso[index])),
-      map(()=>cursos)
-    )
+
+    if(cursos.length>0)
+    {
+      const cursoinfo= cursos.map(c => this.excelService.getCursosInfo(c.IdCurso));
+      return forkJoin(cursoinfo)
+      .pipe(
+        tap(curso => cursos.forEach((c,index)=> c.curso=curso[index])),
+        map(()=>cursos)
+      )
+    }
+    else
+    {
+      this.loading=false;
+      return cursos;
+    }
+    
+    
 
   }
   getCriterioInfo(cursos:any[])
   {
-    const criterioinfo= cursos.map(c => this.excelService.getCriterioInfo(c.curso.value[0].CriterioId));
-    return forkJoin(criterioinfo)
-    .pipe(
-      tap(criterio => cursos.forEach((c,index)=> c.criterio=criterio[index])),
-      map(()=> cursos)
-    )
+    
+    if(cursos.length>0)
+    {
+      const criterioinfo= cursos.map(c => this.excelService.getCriterioInfo(c.curso.value[0].CriterioId));
+      return forkJoin(criterioinfo)
+      .pipe(
+        tap(criterio => cursos.forEach((c,index)=> c.criterio=criterio[index])),
+        map(()=> cursos)
+      )
+    }
+    return cursos;
 
   }
   getCurrentUser()

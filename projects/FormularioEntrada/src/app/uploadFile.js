@@ -93,6 +93,27 @@ function createFolder(folderName)
 }
 function uploadFile(arrayBuffer, fileName, folderName)
 {
+    var clientContext = new SP.ClientContext();
+    var oWeb = clientContext.get_web();
+    var oList = oWeb.get_lists().getByTitle('Documents');
+    var bytes = new Uint8Array(arrayBuffer);
+    var i, length, out = '';
+    for (i = 0, length = bytes.length; i < length; i += 1)
+    {
+        out += String.fromCharCode(bytes[i]);
+    }
+    var base64 = btoa(out);
+    var createInfo = new SP.FileCreationInformation();
+    //createInfo.set_content(base64);
+    createInfo.Content= bytes;
+    createInfo.set_url(fileName);
+    myFolder = oWeb.getFolderByServerRelativeUrl('/sites/CC140991/Documents/' + folderName + '/');
+    var uploadedDocument = myFolder.get_files().add(createInfo);
+    clientContext.load(uploadedDocument);
+    clientContext.executeQuery();
+    //return clientContext.executeQueryAsync(QuerySuccess, QueryFailure);
+    
+    /* 
     //Get Client Context,Web and List object.
     var clientContext = new SP.ClientContext();
     var oWeb = clientContext.get_web();
@@ -119,7 +140,7 @@ function uploadFile(arrayBuffer, fileName, folderName)
     //Load client context and execcute the batch
     clientContext.load(uploadedDocument);
     return clientContext.executeQueryAsync(QuerySuccess, QueryFailure);    
-   
+   */
 }
 function successHandler() {  
     console.log( "Go to the " +  

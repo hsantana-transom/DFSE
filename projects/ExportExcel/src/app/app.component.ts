@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   getAllData()
   {
     const data={
-      select:['Fecha','Categoria/Categoria','Topico/Topico', 'Id','Nivel/Nivel','Periodo'],
+      select:['Fecha','Categoria/Categoria','Topico/Topico', 'Id','Nivel/Nivel','Periodo','Entrenador'],
       top:5000,
       filter:['Periodo eq ' + this.currentYear],
       expand:['Categoria','Topico','Nivel']
@@ -52,9 +52,11 @@ export class AppComponent implements OnInit {
     return cursos.map(curso =>({
       id: curso.Id,
       Fecha: datePipe.transform(new Date(curso.Fecha), 'dd-MM-yyyy'),
+      Entrenador: curso.Entrenador,
       Categoria:curso.Categoria.Categoria,
       Nivel: curso.Nivel.Nivel,
       Topico: curso.Topico.Topico,
+      
       //Criterio: curso.Criterio.Criterio
     }));
   }

@@ -203,5 +203,23 @@ export class SharepointIntegrationService {
 
     return url + config.join('&');
   }
+  createFileConfig(formDigest: string, size: string) {
+    let headers = new HttpHeaders({
+      accept: 'application/application/atom+xml',
+      "X-RequestDigest": formDigest,
+     
+    });
+
+    return {
+      headers
+    };
+  }
+  saveFile2(data,formDigest: string,size:string)
+  {
+    const url="/sites/CC140991/_api/web/lists/getByTitle('Documents')/rootfolder/files/add(url='C:/Users/qy411/Documents/test.txt',overwrite=true)"
+    const config = this.createFileConfig(formDigest, size);
+    console.log(config);
+    return this.http.post(url, config);
+  }
 
 }

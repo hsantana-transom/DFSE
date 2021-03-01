@@ -26,6 +26,8 @@
       <tr>
         <td><strong>Estatus</strong><p>{{status}}</p></td>
         <td><strong>Fecha envio a aprobación:</strong><p>{{fechaAp ? fechaAp : "No asignada"}}</p></td>
+        <td><strong>Entrenador</strong><p>{{dataCourse[0]?.Entrenador}}</p></td>
+        
       </tr>
     </table>
   </mat-card>
@@ -53,11 +55,16 @@
     <br/><br/>
 
     <div>
-      <input (change)="readFile($event)" #fileInput style="display: none;" type="file"/>
+      
+      <input (change)="readFile($event)" #fileInput style="display: none;" type="file" id="getFile"/>
       <button [disabled]="!bandUser || status=='Aprobación' || status=='Aceptado' || bandUploadingFile" (click)="fileInput.value='';fileInput.click()" mat-raised-button>Seleccionar archivo</button>
+      <!--
+      <input id="getFile" type="file" style="content: 'Selecciona archivo';" (change)="readFile($event)" [disabled]="!bandUser || status=='Aprobación' || status=='Aceptado' || bandUploadingFile"/>
+      <span id="messageFile"></span>
+      -->
       <div style="width:60%; display:block;float:right">
-        <button color="primary" *ngIf="bandButtonToApprove" [disabled]="files.length==0 || bandUploadingFile" (click)="onSubmit('aprobacion')" mat-raised-button style="margin-left:5px;margin-right: 5px;" >Solicitar Aprobación</button>
-        <button color="primary" *ngIf="bandButtonSave" (click)="onSubmit('guardar')" [disabled]="bandUploadingFile" mat-raised-button style="margin-left:5px;margin-right: 5px;">Guardar</button>
+        <button color="primary"  id="bAprobar" *ngIf="bandButtonToApprove" [disabled]="files.length==0 || bandUploadingFile" (click)="onSubmit('aprobacion')" mat-raised-button style="margin-left:5px;margin-right: 5px;" >Solicitar Aprobación</button>
+        <button color="primary"  id="bGuardar" *ngIf="bandButtonSave" (click)="onSubmit('guardar')" [disabled]="bandUploadingFile" mat-raised-button style="margin-left:5px;margin-right: 5px;">Guardar</button>
         <button color="primary" *ngIf="bandButtonApproval" (click)="onSubmit('aprobado')" mat-raised-button style="margin-left:5px;margin-right: 5px;">Aprobar</button>
         <button color="warn"  *ngIf="bandButtonReject" (click)="onSubmit('rechazado')" mat-raised-button style="margin-left:5px;margin-right: 5px;">Rechazar</button>
 
@@ -80,4 +87,4 @@
   <mat-progress-bar mode="indeterminate" *ngIf='loading'></mat-progress-bar>
 </form>
 
-
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js" type="text/javascript"></script>

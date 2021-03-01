@@ -158,8 +158,9 @@ export class AppComponent implements OnInit{
   getEvidenceToApprove()
   {
     const dataEvidencia={
-      select:['Estatus', 'Id','IdFecha','IdUser'],
+      select:['Estatus', 'Id','IdFecha','IdUser','UserId','UserId/Nombre','UserId/Email'],
       filter:["Aprobador eq '"  + this.dataUser[0].Email + "'","Estatus eq 'Aprobación'"],
+      expand: ['UserId']
     };
     this.sis.read('Entrada',dataEvidencia)
     .pipe(
@@ -168,6 +169,7 @@ export class AppComponent implements OnInit{
       this.dataEvidenciaAprobador=response;
       console.log("dataEvidenciaAprobador");
       console.log(this.dataEvidenciaAprobador);
+      /*
       if(this.dataEvidenciaAprobador.lenght>0)
       {
         this.dataEvidenciaAprobador.forEach((element, index) => {
@@ -178,7 +180,8 @@ export class AppComponent implements OnInit{
       else{
         this.loading=false;
       }
-      
+      */
+     this.loading=false;
     });
 
   }
@@ -206,10 +209,16 @@ export class AppComponent implements OnInit{
   }
   getEvidenciasAprobadorInfo(evidencias:any)
   {
+    console.log("evidencias");
+
+    console.log(evidencias);
+
     return evidencias.map(e =>({
       IdUser: e.IdUser,
       Id: e.Id,
       IdCurso: e.IdFecha,
+      Nombre:e.UserId.Nombre,
+      Email:e.UserId.Email,
       link: '/sites/CC140991/SitePages/FormEntrada.aspx/' + e.IdUser + "/" + e.IdFecha,
     }));
   }

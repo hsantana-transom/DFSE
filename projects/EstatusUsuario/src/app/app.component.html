@@ -9,6 +9,7 @@
       </tr>
     </table>
   </div>
+  <br/>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
@@ -66,6 +67,7 @@
     </table>
     <h2>Evidencia que requiere mi aprobación</h2>
   </div>
+  <br/>
   <div *ngIf="dataEvidenciaAprobador.length>0">
     <table mat-table [dataSource]="dataEvidenciaAprobador" class="mat-elevation-z8">
 
@@ -75,13 +77,13 @@
       
       <ng-container matColumnDef="usuario">
         <th mat-header-cell *matHeaderCellDef> Usuario </th>
-        <td mat-cell *matCellDef="let element" > {{element.User.Nombre}} </td>
+        <td mat-cell *matCellDef="let element" > {{element.Nombre}} </td>
       </ng-container>
 
       
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element" > {{element.User.Email}} </td>
+        <td mat-cell *matCellDef="let element" > {{element.Email}} </td>
       </ng-container>
 
       <ng-container matColumnDef="curso">

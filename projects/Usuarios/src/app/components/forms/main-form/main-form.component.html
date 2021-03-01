@@ -79,10 +79,10 @@
                 </div>
                 <div fxFlex="50%" >
                     <mat-form-field appearance="fill" style="width:90%">
-                        <mat-label>Código de región *</mat-label>
+                        <mat-label>Código de región /País *</mat-label>
                         <mat-select formControlName='region'>
                         <mat-option *ngFor="let reg of regiones"  [value]="reg.Id">
-                            {{reg.Codigo}}
+                            {{reg.Codigo}} - {{reg.Pais}}
                         </mat-option>
                         </mat-select>
                         <mat-error>

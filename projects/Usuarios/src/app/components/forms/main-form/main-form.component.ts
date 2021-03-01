@@ -199,7 +199,7 @@ export class MainFormComponent implements OnInit {
               map(formDigest => {
                 return [
                   of(formDigest),
-                  this.sis.saveUserInGroup('6', dataLogin, formDigest)
+                  this.sis.saveUserInGroup('5', dataLogin, formDigest)
                 ];
               }),
               switchMap(requests => forkJoin(requests)),
@@ -231,7 +231,7 @@ export class MainFormComponent implements OnInit {
             map(formDigest => {
               return [
                 of(formDigest),
-                this.sis.saveUserInGroup('6', dataLogin, formDigest)
+                this.sis.saveUserInGroup('5', dataLogin, formDigest)
               ];
             }),
             switchMap(requests => forkJoin(requests)),
@@ -268,9 +268,9 @@ export class MainFormComponent implements OnInit {
                 this.sis.save("Usuarios",data,formDigest).subscribe(res =>{
                   if(this.oldRol != this.SelectedRol)
                   {
-                    this.sis.readUserFromGroup('6', values.wwid).subscribe(resp =>{
+                    this.sis.readUserFromGroup('5', values.wwid).subscribe(resp =>{
                       this.userInfo=resp;
-                      this.sis.deleteUserFromGroup('6',this.userInfo.value[0].Email,formDigest).subscribe();
+                      this.sis.deleteUserFromGroup('5',this.userInfo.value[0].Email,formDigest).subscribe();
                     })
                   }
                 });
@@ -298,7 +298,7 @@ export class MainFormComponent implements OnInit {
           map(([formDigest])=>{
             this.sis.save("Usuarios",data,formDigest).subscribe(res =>{
               if(this.oldRol != this.SelectedRol)
-                this.sis.deleteUserFromGroup('6',data.Email,formDigest).subscribe();
+                this.sis.deleteUserFromGroup('5',data.Email,formDigest).subscribe();
             });
           })
         );
@@ -336,9 +336,9 @@ export class MainFormComponent implements OnInit {
               map(([formDigest])=>{
                 if(!this.isNew)
                 {
-                  this.sis.readUserFromGroup('6', values.wwid).subscribe(res =>{
+                  this.sis.readUserFromGroup('5', values.wwid).subscribe(res =>{
                     this.userInfo=res;
-                    this.sis.deleteUserFromGroup('6',this.userInfo.value[0].Email,formDigest).subscribe();
+                    this.sis.deleteUserFromGroup('5',this.userInfo.value[0].Email,formDigest).subscribe();
                   })
                 }
               }),
@@ -364,7 +364,7 @@ export class MainFormComponent implements OnInit {
             switchMap(requests => forkJoin(requests)),
             map(([formDigest])=>{
               if(!this.isNew)
-                this.sis.deleteUserFromGroup('6',data.Email,formDigest).subscribe();
+                this.sis.deleteUserFromGroup('5',data.Email,formDigest).subscribe();
             }),
           );
         }
@@ -446,13 +446,14 @@ export class MainFormComponent implements OnInit {
 
     });
     
-    if(this.data.tipo=='INTERNO')
-    {
-      this.bandTipo=true;
-      this.mainForm.get('wwid').setValidators(Validators.required);
-      this.mainForm.get('wwid').updateValueAndValidity();
-    }
+   
     if (!this.isNew) {
+      if(this.data.tipo=='INTERNO')
+      {
+        this.bandTipo=true;
+        this.mainForm.get('wwid').setValidators(Validators.required);
+        this.mainForm.get('wwid').updateValueAndValidity();
+      }
       this.SelectedRol=this.data.rolName;
       this.oldRol=this.data.rolName;
       console.log(this.data);
@@ -528,14 +529,17 @@ export class MainFormComponent implements OnInit {
   getRegiones()
   {
     const data={
-      select:['Id,Codigo'],
+      select:['Id,Codigo,Pais'],
       top:5000,
-      filter: ['Estatus eq \'ACTIVO\'']
+      filter: ['Estatus eq \'ACTIVO\''],
+      
     };
     this.sis.read("Regiones",data).subscribe((response:any)=>{
       if(response)
       {
-        this.regiones=response.value;
+        this.regiones = response.value
+        
+        //this.regiones=response.value;
         if(!this.isNew)
           this.checkRegion();
       }
