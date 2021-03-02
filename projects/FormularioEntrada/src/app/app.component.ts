@@ -126,6 +126,10 @@ export class AppComponent implements OnInit{
       this.bandButtonToApprove=true;
       this.bandButtonApproval=false
       this.bandButtonReject=false;
+      this.mainForm.get('description').enable();
+      this.mainForm.get('name').enable();
+      this.mainForm.get('com1').enable();
+      this.mainForm.get('com2').disable();
     }
     else if(this.bandAprobador && this.status=='Aprobación')
     {
@@ -135,6 +139,10 @@ export class AppComponent implements OnInit{
       this.bandButtonToApprove=false;
       this.bandButtonApproval=true;
       this.bandButtonReject=true;
+      this.mainForm.get('description').disable();
+        this.mainForm.get('name').disable();
+        this.mainForm.get('com1').disable();
+        this.mainForm.get('com2').enable();
     }
     else if(!this.bandUser || (this.bandUser && this.status=='Aceptado'))
     {
@@ -144,8 +152,12 @@ export class AppComponent implements OnInit{
         this.bandButtonToApprove=false;
         this.bandButtonApproval=false;
         this.bandButtonReject=false;
+        this.mainForm.get('description').disable();
+        this.mainForm.get('name').disable();
+        this.mainForm.get('com1').disable();
+        this.mainForm.get('com2').disable();
     }
-    console.log("No entre a nada jajaja");
+    console.log("No entre a nada");
   }
   getCourse()
   {

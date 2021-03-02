@@ -276,7 +276,6 @@ export class MainFormComponent implements OnInit {
                 });
               })
             );
-        
         }
         else
         {
