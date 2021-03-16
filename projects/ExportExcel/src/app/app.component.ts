@@ -4,6 +4,10 @@ import { FormsService, ImageFile, SharepointIntegrationService } from 'shared-li
 import { DatePipe } from '@angular/common';
 import { map, switchMap } from 'rxjs/operators';
 import { OnInit } from '@angular/core';
+/**
+ * Main app component
+ */
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,9 +26,15 @@ export class AppComponent implements OnInit {
     console.log(this.data);
 
   }
+  /**
+   * calls excel service method to export data
+   */
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.data, 'Periodo');
   }
+  /**
+   * gets all Courses items
+   */
   getAllData()
   {
     const data={
@@ -46,6 +56,10 @@ export class AppComponent implements OnInit {
       })
     });
   }
+  /**
+   * creates an object of the courses array
+   * @param cursos  courses array
+   */
   getFechasInfo(cursos:any[])
   {
     const datePipe = new DatePipe('en-US');
@@ -60,6 +74,10 @@ export class AppComponent implements OnInit {
       //Criterio: curso.Criterio.Criterio
     }));
   }
+  /**
+   * get Criteria information for each Course
+   * @param c course data
+   */
   getCriterios(c)
   {
     const data={

@@ -7,14 +7,23 @@ import { MainDataSource } from '../datasources/main-data-source';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Main service
+ */
 export class MainTableService {
   dataSource: MainDataSource;
   constructor(private sis: SharepointIntegrationService) {
     this.dataSource = new MainDataSource();
   }
+  /**
+   * Clears data in dataSource array
+   */
   clearAll() {
     this.dataSource.clearAll();
   }
+  /**
+   * Gets data from Categorias Sharepoint List
+   */
   loadData() {
     const data = {
       select: ['Categoria', 'Id', 'Estatus', 'Created'],
@@ -42,6 +51,10 @@ export class MainTableService {
         })
       );
   }
+  /**
+   * Gets search Data from Categorias Sharepoint list
+   * @param search search string to filter query
+   */
   loadSearch(search) {
     var fields=['Id','Categoria','Estatus']
     const data = {

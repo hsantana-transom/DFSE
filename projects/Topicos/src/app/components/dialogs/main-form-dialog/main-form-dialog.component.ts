@@ -4,6 +4,9 @@ import { MessageService } from 'shared-lib';
 import { MainFormComponent } from '../../forms/main-form/main-form.component';
 import { MainTableService } from '../../../services/main-table.service';
 
+/**
+ * Main Dialog Component
+ */
 @Component({
   selector: 'app-main-form-dialog',
   templateUrl: './main-form-dialog.component.html',
@@ -28,9 +31,16 @@ export class MainFormDialogComponent implements OnInit {
     this.title = this.data ? 'Editar' : 'Agregar';
 
   }
+    /**
+   * Closes dialog
+   */
   onClose() {
     this.dialogRef.close();
   }
+  
+  /**
+   * loads data to main table when new item is submitted
+   */
   onSubmit() {
     this.loading = true;
 

@@ -7,6 +7,9 @@ jQuery(document).ready(function () {
       alert('This browser does not support the FileReader API.');
     }
   });
+  /**
+   * Creates a folder to store documents
+   */
   function sharePointReady() {
     var url="/sites/CC140991/";
     var clientContext = new SP.ClientContext(url);
@@ -29,19 +32,28 @@ jQuery(document).ready(function () {
         Function.createDelegate(this, errorHandler)  
     );
   }
+  /**
+   * message if the folder is created succesfully
+   */
   function successHandler() {  
     console.log( "Go to the " +  
     "<a href='../Lists/Shared Documents'>document library</a> " +  
     "to see your new folder.");
     
  }  
-
+/**
+ * Message if the creation folder sends an error
+ */
 function errorHandler() {  
     console.log( "Request failed: " + arguments[1].get_message() );  
         
 }; 
-  // Upload the file.
-  // You can upload files up to 2 GB with the REST API.
+/**
+ * Uplodas File
+ * /You can upload files up to 2 GB with the REST API.
+ * @param {*} fileN File name
+ * @param {*} folder folder route
+ */  
   function uploadFile(fileN,folder) {
     // Define the folder path for this example.
     var serverRelativeUrlToFolder = 'Documents/' + folder;
@@ -90,8 +102,10 @@ function errorHandler() {
     });
     getFile.fail(onError);
     
-  
-    // Get the local file as an array buffer.
+    /**
+     *  Get the local file as an array buffer.
+     */
+   
     function getFileBuffer() {
       var deferred = jQuery.Deferred();
       var reader = new FileReader();
@@ -105,7 +119,11 @@ function errorHandler() {
       return deferred.promise();
     }
   
-    // Add the file to the file collection in the Shared Documents folder.
+    /**
+     * // Add the file to the file collection in the Shared Documents folder.
+     * @param {*} arrayBuffer  file buffer
+     */
+    
     function addFileToFolder(arrayBuffer) {
       // Get the file name from the file input control on the page.
       var parts = fileInput[0].value.split('\\');
@@ -131,8 +149,10 @@ function errorHandler() {
           }
       });
     }
-  
-    // Get the list item that corresponds to the file by calling the file's ListItemAllFields property.
+    /**
+     * Get the list item that corresponds to the file by calling the file's ListItemAllFields property.
+     * @param {*} fileListItemUri string file information
+     */
     function getListItem(fileListItemUri) {
       // Send the request and return the response.
       return jQuery.ajax({
@@ -141,8 +161,11 @@ function errorHandler() {
         headers: { "accept": "application/json;odata=verbose" }
       });
     }
-  
-    // Change the display name and title of the list item.
+    /**
+     * // Change the display name and title of the list item.
+     * @param {*} itemMetadata file metadata
+     */
+    
     function updateListItem(itemMetadata) {
       // Define the list item changes. Use the FileLeafRef property to change the display name.
       // For simplicity, also use the name as the title.
@@ -167,8 +190,11 @@ function errorHandler() {
       });
     }
   }
+  /**
+   * // Display error messages.
+   * @param {*} error error message
+   */
   
-  // Display error messages.
   function onError(error) {
     alert(error.responseText);
     document.getElementById("bAprobar").disabled = false;

@@ -8,6 +8,10 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 import { FormsService, ImageFile, SharepointIntegrationService } from 'shared-lib';
 import { MainTableService } from '../../../services/main-table.service';
 import {of,forkJoin} from 'rxjs';
+
+/**
+ * Main Form Component
+ */
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
@@ -67,6 +71,10 @@ export class MainFormComponent implements OnInit {
     })
   }
   // Custom public methods
+  /**
+   * Gets all User items
+   */
+
   getAllData()
   {
     const data={
@@ -81,7 +89,10 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
-  
+  /**
+   * Checks for duplicated items
+   * @param newCriteria new User item
+   */
   checkDuplicate(newString:string, validador:string)
   {
     if(validador=='wwid')
@@ -139,24 +150,23 @@ export class MainFormComponent implements OnInit {
     
   }
   
-
+  /**
+   * Disable all controls on the form
+   */
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
-
+  /**
+   * enable all controls on the form
+   */
   enableFields() {
     this.fs.enableFields(this.mainForm);
   }
 
-  onFileEvent(event: ImageFile, type: string) {
-    switch (type) {
-      case 'main':
-        this.mainImage = event;
-        break;
-    }
-  }
-
-
+  
+  /**
+   * Submits User information introduced by the users
+   */
   submit() {
     const values = this.mainForm.value;
     const data: any = {
@@ -428,7 +438,9 @@ export class MainFormComponent implements OnInit {
   }
 
    // Custom private methods
-
+  /**
+   * Setups the form with its validations for each control 
+   */
   private setupForm() {
     this.mainForm = this.fb.group({
       id: null,
@@ -472,6 +484,9 @@ export class MainFormComponent implements OnInit {
       
     }
   }
+  /**
+   * checks current user role
+   */
   checkRole()
   {
     const dataRoles={
@@ -489,6 +504,9 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
+  /**
+   * checks inactive selected region when editing an item
+   */
   checkRegion()
   {
     const data={
@@ -508,6 +526,9 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
+  /**
+   * get all active roles items
+   */
   getRoles()
   {
     const data={
@@ -525,6 +546,9 @@ export class MainFormComponent implements OnInit {
     });
     
   }
+  /**
+   * get all active region items
+   */
   getRegiones()
   {
     const data={
@@ -544,6 +568,10 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+  /**
+   * Checks the type of user selected
+   * @param e dropdown select event value
+   */
   VerifyType(e)
   {
     if(e=="INTERNO")
@@ -559,6 +587,10 @@ export class MainFormComponent implements OnInit {
       this.bandTipo=false;
     }
   }
+  /**
+   * gets the value text of the selected Rol
+   * @param e dropdown select event value
+   */
   getSelectedRol(e)
   {
     this.SelectedRol=e.source.triggerValue
@@ -567,10 +599,16 @@ export class MainFormComponent implements OnInit {
       this.oldRol= this.SelectedRol;
 
   }
+  /**
+   * gets user email
+   */
   get userEmail()
   {
     return this.mainForm.get('email');
   }
+  /**
+   * gets user's supervisor email
+   */
   get superEmail()
   {
     return this.mainForm.get('emailSupervisor');

@@ -16,7 +16,9 @@ export class AppComponent {
   ) { }
 
   // Custom public methods
-
+ /**
+   * calls the component that creates the form dialog
+   */
   onAdd() {
     const dialogRef = this.dialog.open(MainFormDialogComponent, {
       disableClose: true,

@@ -7,6 +7,9 @@ import { FormsService, ImageFile, SharepointIntegrationService } from 'shared-li
 import { MainTableService } from '../../../services/main-table.service';
 import { DatePipe } from '@angular/common';
 
+/**
+ * Main Form Component
+ */
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
@@ -65,6 +68,9 @@ export class MainFormComponent implements OnInit {
     });
   }
   // Custom public methods
+  /**
+   * checks Dates
+   */
   verificaFechas()
   {
     if(this.mainForm.get('fechaI').value != null && this.mainForm.get('fechaF').value != null)
@@ -75,6 +81,9 @@ export class MainFormComponent implements OnInit {
         this.bandFechas=false;
     }
   }
+  /**
+   * Gets all Period items
+   */
   getAllData()
   {
     const data={
@@ -88,6 +97,10 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+    /**
+   * Checks for duplicated items
+   * @param newCriteria new Period item
+   */
   checkDuplicate(newCriteria:string)
   {
     console.log(newCriteria);
@@ -120,45 +133,24 @@ export class MainFormComponent implements OnInit {
       }
     }
   }
-  addKeyword(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    if ((value || '').trim()) {
-      this.keywords.push(value.trim());
-      this.mainForm.markAsDirty();
-
-    }
-    if (input) {
-      input.value = '';
-    }
-  }
-
+  
+  /**
+   * Disable all controls on the form
+   */
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
-
+  /**
+   * enable all controls on the form
+   */
   enableFields() {
     this.fs.enableFields(this.mainForm);
   }
 
-  onFileEvent(event: ImageFile, type: string) {
-    switch (type) {
-      case 'main':
-        this.mainImage = event;
-        break;
-    }
-  }
-
-  removeKeyword(keyword: any) {
-    const index = this.keywords.indexOf(keyword);
-
-    if (index >= 0) {
-      this.keywords.splice(index, 1);
-    }
-    this.mainForm.markAsDirty();
-  }
-
+  
+    /**
+   * Submits Level information introduced by the users
+   */
   submit() {
     const values = this.mainForm.value;
     const data: any = {
@@ -181,7 +173,9 @@ export class MainFormComponent implements OnInit {
     );
   }
    // Custom private methods
-
+  /**
+   * Setups the form with its validations for each control 
+   */
   private setupForm() {
     
     const currentYear = new Date().getFullYear();
@@ -206,10 +200,10 @@ export class MainFormComponent implements OnInit {
       });
     }
   }
-  verificaFecha(event)
-  {
-    console.log(event);
-  }
+
+  /**
+   * gets period name
+   */
   get periodo()
   {
     return this.mainForm.get('name');

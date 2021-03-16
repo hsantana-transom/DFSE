@@ -8,6 +8,9 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { FormsService, ImageFile, SharepointIntegrationService } from 'shared-lib';
 import { MainTableService } from './services/main-table.service';
 
+/**
+ * Main app component
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -48,9 +51,15 @@ export class AppComponent implements OnInit{
       this.verificaFechas();
     });
   }
+  /**
+   * calls excel service method to export data
+   */
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.data, 'Cursos aprobados - Periodo');
   }
+  /**
+   * checks the two selected dates
+   */
   verificaFechas()
   {
     if(this.mainForm.get('fecha1').value != null && this.mainForm.get('fecha2').value != null)
@@ -61,6 +70,9 @@ export class AppComponent implements OnInit{
         this.bandFechas=false;
     }
   }
+  /**
+   * Gets data to export
+   */
   getData()
   {
     this.loading=true;
@@ -113,6 +125,10 @@ export class AppComponent implements OnInit{
       this.loading=false;
     });
   }
+  /**
+   * Creates an object with curses array
+   * @param cursos courses array
+   */
   getCursosInfo(cursos:any)
   {
  
@@ -135,18 +151,10 @@ export class AppComponent implements OnInit{
       }))
     }
   }
-  fixEvidenciasInfo(cursos:any[])
-  {
-    console.log("FixCursos");
-    console.log(cursos);
-    return cursos.map(c => ({
-     Categoria: c.curso.value[0].Categoria.Categoria,
-     Nivel: c.curso.value[0].Nivel.Nivel,
-     Topico:c.curso.value[0].Topico.Topico,
-     Criterio: c.criterio.value[0].Criterio
-
-    }))
-  }
+  /**
+   * gets cursos information data
+   * @param cursos courses array
+   */
   getCursosData(cursos: any[])
   {
 
@@ -168,6 +176,10 @@ export class AppComponent implements OnInit{
     
 
   }
+  /**
+   * gets Criteria information data
+   * @param cursos courses array
+   */
   getCriterioInfo(cursos:any[])
   {
     
@@ -183,6 +195,9 @@ export class AppComponent implements OnInit{
     return cursos;
 
   }
+  /**
+   * gets current user logged in
+   */
   getCurrentUser()
   {
     this.sis.readCurrentUser().subscribe(res=>{
@@ -192,6 +207,9 @@ export class AppComponent implements OnInit{
       this.getUser();
     })
   }
+  /**
+   * Gets user information logged in
+   */
   getUser()
   {
     const data={
@@ -210,6 +228,10 @@ export class AppComponent implements OnInit{
         
     });//r=>this.getCourses());
   }
+  /**
+   * Creates an object of the user array
+   * @param users user information array
+   */
   getUserInfo(users: any[])
   {
     return users.map(r =>({
@@ -219,6 +241,9 @@ export class AppComponent implements OnInit{
       Rol: r.Rol.Nombre
     }));
   }
+  /**
+   * Initialize the form with controls and validations
+   */
   private setupForm() {
     this.mainForm = this.fb.group({
       fecha1: [null,Validators.required],

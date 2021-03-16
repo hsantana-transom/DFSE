@@ -4,7 +4,9 @@ import { tap, map } from 'rxjs/operators';
 import { SharepointIntegrationService } from 'shared-lib';
 import { MainDataSource } from '../datasources/main-data-source';
 
-
+/**
+ * Main service
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +16,15 @@ export class MainTableService {
   constructor(private sis: SharepointIntegrationService) {
     this.dataSource = new MainDataSource();
   }
+  /**
+   * Clears data in dataSource array
+   */
   clearAll() {
     this.dataSource.clearAll();
   }
+  /**
+   * Gets data from Rol Sharepoint List
+   */
   loadData() {
     const data = {
       select: ['Nombre', 'Id', 'Estatus', 'Created'],
@@ -44,6 +52,10 @@ export class MainTableService {
         })
       );
   }
+  /**
+   * Gets search Data from Rol Sharepoint list
+   * @param search search string to filter query
+   */
   loadSearch(search) {
     var fields=['Id','Nombre','Estatus']
     const data = {

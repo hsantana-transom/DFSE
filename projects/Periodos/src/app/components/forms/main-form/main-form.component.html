@@ -21,7 +21,7 @@
        
         <div fxFlex="50%">
             <mat-form-field >
-                <input formControlName="fechaF" [min]="minDate" [matDatepicker]="fechaF" (ValueChange)="verificaFecha($event)" matInput placeholder="Fecha Final *" readonly />
+                <input formControlName="fechaF" [min]="minDate" [matDatepicker]="fechaF"  matInput placeholder="Fecha Final *" readonly />
                 <mat-datepicker-toggle matSuffix [for]="fechaF" ></mat-datepicker-toggle>
                 <mat-datepicker #fechaF></mat-datepicker>
                 <mat-error>

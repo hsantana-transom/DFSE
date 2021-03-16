@@ -7,7 +7,9 @@ import { MessageService } from 'shared-lib';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { forkJoin } from 'rxjs';
 
-
+/**
+ * Main app component
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -48,10 +50,9 @@ export class AppComponent implements OnInit{
     this.sis.read('Entrada',dataEvidencia).subscribe(res=>console.log(res));
     */
   }
-  ngAfterViewInit()
-  {
-    
-  }
+  /**
+   * gets all Courses items
+   */
   getCourses()
   {
     const data={
@@ -74,6 +75,10 @@ export class AppComponent implements OnInit{
       })
     });
   }
+  /**
+   * Creates an object of the courses array items
+   * @param courses courses items
+   */
   getCoursesInfo(courses:any[])
   {
     return courses.map(course =>({
@@ -85,6 +90,11 @@ export class AppComponent implements OnInit{
 
     }));
   }
+  /**
+   * Gets Evidence data for each course
+   * @param course course data
+   * @param i course index in courses array
+   */
   getEvidencias(course,i)
   {
     
@@ -114,6 +124,9 @@ export class AppComponent implements OnInit{
       this.loading=false;
     });
   }
+  /**
+   * gets Current user logged in
+   */
   getCurrentUser()
   {
     this.sis.readCurrentUser().subscribe(res=>{
@@ -123,6 +136,9 @@ export class AppComponent implements OnInit{
       this.getUser();
     })
   }
+  /**
+   * Gets Current user information
+   */
   getUser()
   {
     const data={
@@ -145,6 +161,10 @@ export class AppComponent implements OnInit{
         
     });//r=>this.getCourses());
   }
+  /**
+   * Creates an object of the users array data
+   * @param users users array
+   */
   getUserInfo(users: any[])
   {
     return users.map(r =>({
@@ -155,6 +175,9 @@ export class AppComponent implements OnInit{
       Rol: r.Rol.Nombre
     }));
   }
+  /**
+   * Gets evidences that needs approval
+   */
   getEvidenceToApprove()
   {
     const dataEvidencia={
@@ -185,28 +208,10 @@ export class AppComponent implements OnInit{
     });
 
   }
-  getUserInfoToAprobador(e,i)
-  {
-    const data={
-      select:['Id','Nombre','Email'],
-      top:1,
-      filter:["Id eq '" + e.IdUser + "'"],
-    };
-    const datePipe = new DatePipe('en-US');
-    this.sis.read('Usuarios', data).pipe(
-      map((user:any) => ({
-        Nombre:user.value[0].Nombre,
-        Email:user.value[0].Email,
-      })),
-    )
-    .subscribe(r=>{
-      console.log("DATOS USUARIO");
-      console.log(r);
-      this.dataEvidenciaAprobador[i].User= r;
-      console.log(this.dataEvidenciaAprobador);
-      this.loading=false;
-    });
-  }
+  /** 
+   * Creates an object of the Evidences to approve array items 
+   *  @param evidencias Evidences array
+  */
   getEvidenciasAprobadorInfo(evidencias:any)
   {
     console.log("evidencias");

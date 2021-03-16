@@ -8,6 +8,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { bandFileUp } from './uploadFile2.js';
 import { ThrowStmt } from '@angular/compiler';
 declare var uploadFile:any;
+/**
+ * Main app component
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -68,6 +71,9 @@ export class AppComponent implements OnInit{
     this.setupForm();
     
   }
+  /**
+   * Gets evidence data 
+   */
   getEntrada()
   {
     const datePipe = new DatePipe('en-US');
@@ -116,6 +122,9 @@ export class AppComponent implements OnInit{
       this.checkButtonsFlags();
     });
   }
+  /**
+   * Checks controls flags according to the status
+   */
   checkButtonsFlags()
   {
     if(this.bandUser && (this.status=='Draft' || this.status=='Rechazado'))
@@ -128,7 +137,7 @@ export class AppComponent implements OnInit{
       this.bandButtonReject=false;
       this.mainForm.get('description').enable();
       this.mainForm.get('name').enable();
-      this.mainForm.get('com1').enable();
+      this.mainForm.get('com1').disable();
       this.mainForm.get('com2').disable();
     }
     else if(this.bandAprobador && this.status=='Aprobación')
@@ -141,7 +150,7 @@ export class AppComponent implements OnInit{
       this.bandButtonReject=true;
       this.mainForm.get('description').disable();
         this.mainForm.get('name').disable();
-        this.mainForm.get('com1').disable();
+        this.mainForm.get('com1').enable();
         this.mainForm.get('com2').enable();
     }
     else if(!this.bandUser || (this.bandUser && this.status=='Aceptado'))
@@ -159,10 +168,14 @@ export class AppComponent implements OnInit{
     }
     console.log("No entre a nada");
   }
+  /**
+   * get courses data
+   */
   getCourse()
   {
     const data={
-      select:['Fecha','Categoria/Categoria','Topico/Topico', 'Id','Nivel/Nivel','CriterioId','Periodo','Entrenador'],
+      select:['Fecha','Categoria/Categoria','Topico/Topico', 
+      'Id','Nivel/Nivel','CriterioId','Periodo','Entrenador'],
       top:1,
       filter:['Id eq ' + this.IdFecha],
       expand:['Categoria','Topico','Nivel'],
@@ -176,6 +189,10 @@ export class AppComponent implements OnInit{
       response.forEach(c =>this.getCriterios(c))
     });
   }
+  /**
+   * Creates an object of the courses array
+   * @param cursos courses array
+   */
   getFechasInfo(cursos:any[])
   {
     const datePipe = new DatePipe('en-US');
@@ -190,6 +207,10 @@ export class AppComponent implements OnInit{
       Entrenador: r.Entrenador
     }))
   }
+  /**
+   * gets Criteria data
+   * @param c courso 
+   */
   getCriterios(c)
   {
     const data={
@@ -202,6 +223,9 @@ export class AppComponent implements OnInit{
         this.dataCourse.push(c);
     })
   }
+  /**
+   * get current user information
+   */
   getUser()
   {
     const data={
@@ -244,6 +268,9 @@ export class AppComponent implements OnInit{
       }),
     ).subscribe();
   }
+  /**
+   * gets current user
+   */
   getCurrentUser()
   {
     this.sis.readCurrentUser().subscribe(res=>{
@@ -253,18 +280,23 @@ export class AppComponent implements OnInit{
       this.getUser();
     })
   }
+  
+  /**
+   * disables all form controls
+   */
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
-
+  /**
+   * enables all form controls
+   */
   enableFields() {
     this.fs.enableFields(this.mainForm);
   }
-  ngOnDestroy()
-  {
-    clearInterval(this.intTime);
-    
-  }
+  /**
+   * Reads selected files to upload
+   * @param event selected file control event
+   */
   readFile(event)
   {
     this.bandUploadingFile=true;
@@ -439,6 +471,10 @@ export class AppComponent implements OnInit{
     */
     
   }
+  /**
+   * Deletes a file from de array 
+   * @param index array index to delete
+   */
   onDelete(index)
   {
     //console.log(index);
@@ -448,6 +484,10 @@ export class AppComponent implements OnInit{
     //console.log(this.files);
 
   }
+  /**
+   * Submit data introduced by the user
+   * @param e new status
+   */
   onSubmit(e)
   {
     this.loading=true;
@@ -541,6 +581,9 @@ export class AppComponent implements OnInit{
       );
     }
   }
+  /**
+   * Setups the form with its validations for each control 
+   */
   private setupForm() {
     this.mainForm = this.fb.group({
       id: null,

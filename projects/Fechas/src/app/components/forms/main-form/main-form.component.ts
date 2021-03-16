@@ -6,6 +6,10 @@ import { switchMap } from 'rxjs/operators';
 import { FormsService, ImageFile, SharepointIntegrationService } from 'shared-lib';
 import { MainTableService } from '../../../services/main-table.service';
 import { DatePipe } from '@angular/common';
+
+/**
+ * Main Form Component
+ */
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
@@ -73,7 +77,9 @@ export class MainFormComponent implements OnInit {
     
   }
   // Custom public methods
-  
+  /**
+   * Gets all Courses items
+   */
   getAllData()
   {
     const data={
@@ -88,6 +94,10 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+    /**
+   * Checks for duplicated items
+   * @param newFecha new Date item
+   */
   checkDuplicate(newFecha:string)
   {
     console.log(newFecha);
@@ -124,44 +134,23 @@ export class MainFormComponent implements OnInit {
       }
     }
   }
-  addKeyword(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    if ((value || '').trim()) {
-      this.keywords.push(value.trim());
-      this.mainForm.markAsDirty();
-
-    }
-    if (input) {
-      input.value = '';
-    }
-  }
-
+  /**
+   * Disable all controls on the form
+   */
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
-
+  /**
+   * enable all controls on the form
+   */
   enableFields() {
     this.fs.enableFields(this.mainForm);
   }
 
-  onFileEvent(event: ImageFile, type: string) {
-    switch (type) {
-      case 'main':
-        this.mainImage = event;
-        break;
-    }
-  }
-
-  removeKeyword(keyword: any) {
-    const index = this.keywords.indexOf(keyword);
-
-    if (index >= 0) {
-      this.keywords.splice(index, 1);
-    }
-    this.mainForm.markAsDirty();
-  }
+   
+  /**
+   * Submits Course information introduced by the users
+   */
 
   submit() {
     const values = this.mainForm.value;
@@ -192,7 +181,9 @@ export class MainFormComponent implements OnInit {
     );
   }
    // Custom private methods
-
+    /**
+   * Setups the form with its validatios for each control 
+   */
   private setupForm() {
     this.mainForm = this.fb.group({
       id: null,
@@ -226,6 +217,9 @@ export class MainFormComponent implements OnInit {
       });
     }
   }
+  /**
+   * gets all active Categories
+   */
   getCategories()
   {
     const data={
@@ -243,8 +237,12 @@ export class MainFormComponent implements OnInit {
     });
 
   }
+  /**
+   * gets all active topics
+   */
   getTopics()
   {
+    
     const data={
       select:['Id,Topico'],
       top:5000,
@@ -259,6 +257,9 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+  /**
+   * gets all active levels
+   */
   getLevels()
   {
     const data={
@@ -275,6 +276,9 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+  /**
+   * get all active Criteria
+   */
   getCriterias()
   {
     const data={
@@ -291,19 +295,35 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+  /**
+   * Gets text from the selected category
+   * @param event dropdown select event
+   */
   getSelectedCategory(event)
   {
     this.categoryText=event.source.triggerValue
   }
+    /**
+   * Gets text from the selected topic
+   * @param event dropdown select event
+   */
   getSelectedTopic(event)
   {
     this.topicText=event.source.triggerValue
     
   }
+    /**
+   * Gets text from the selected level
+   * @param event dropdown select event
+   */
   getSelectedLevel(event)
   {
     this.levelText=event.source.triggerValue
   }
+    /**
+   * Gets text from the selected Criteria
+   * @param event dropdown select event
+   */
   getSelectedCriteria(event)
   {
     this.criteriaText=event.source.triggerValue
@@ -313,6 +333,9 @@ export class MainFormComponent implements OnInit {
       this.shortCriterio= this.criteriaText
 
   }
+  /**
+   * Gets inactive category when editing item
+   */
   checkCategory()
   {
     const data={
@@ -330,6 +353,9 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
+    /**
+   * Gets inactive topic when editing item
+   */
   checkTopic()
   {
     const data={
@@ -347,6 +373,9 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
+    /**
+   * Gets inactive level when editing item
+   */
   checkLevel()
   {
     const data={
@@ -364,6 +393,9 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
+    /**
+   * Gets inactive criteria when editing item
+   */
   checkCriteria()
   {
     const data={
@@ -381,6 +413,9 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
+    /**
+   * Gets inactive criteria text data when editing item
+   */
   getCriteriaText()
   {
     for(var i=0; i<this.data.length; i++)

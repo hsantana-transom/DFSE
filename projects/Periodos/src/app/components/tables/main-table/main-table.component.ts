@@ -7,6 +7,10 @@ import { MainDataSource } from '../../../datasources/main-data-source';
 import { MainTableService } from '../../../services/main-table.service';
 import {FormGroup,FormBuilder} from '@angular/forms';
 
+
+/**
+ * main table component
+ */
 @Component({
   selector: 'app-main-table',
   templateUrl: './main-table.component.html',
@@ -53,6 +57,10 @@ export class MainTableComponent implements OnInit {
         () => this.loading = false
       );
   }
+    /**
+   * setup for search control
+   */
+
   setupForm()
   {
     this.searchForm= this.fb.group({
@@ -60,12 +68,15 @@ export class MainTableComponent implements OnInit {
     });
   }
   // Custom public methods
-
+  /**
+   * calls event whether the user clicks edit or delete on the table
+   */
   onOperation(event) {
     switch (event.operation) {
-      case 'delete':
+     /* case 'delete':
         this.onDelete(event.item);
         break;
+      */
       case 'edit':
         this.onEdit(event.item);
         break;
@@ -73,7 +84,10 @@ export class MainTableComponent implements OnInit {
   }
 
   // Custom private methods
-
+  /**
+   * Deletes a Level Item
+   * @param item item to delete
+   */
   private onDelete(item: any) {
     this.message.confirm({
       text: '¿Desea eliminar?',
@@ -111,6 +125,10 @@ export class MainTableComponent implements OnInit {
         }
       });
   }
+  /**
+ * Opens Form Dialog with item information to edit
+ * @param item item to edit 
+ */
   SearchData()
   {
     const values = this.searchForm.value;
@@ -123,6 +141,9 @@ export class MainTableComponent implements OnInit {
         () => {this.loading = false; this.bandClear=true}
       );
   }
+    /**
+   * clears search Level Data 
+   */
   clearSearch()
   {
     this.mts.loadData()
@@ -138,6 +159,9 @@ export class MainTableComponent implements OnInit {
   }
 
 }
+/**
+ * Columns to show in the table
+ */
 export const COLUMNS = [
   {
     key: 'createdLabel',
