@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { bandFileUp } from './uploadFile2.js';
 import { ThrowStmt } from '@angular/compiler';
 declare var uploadFile:any;
+
 /**
  * Main app component
  */
@@ -16,6 +17,7 @@ declare var uploadFile:any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit{
   mainForm: FormGroup;
   private isNew: boolean;
@@ -46,6 +48,7 @@ export class AppComponent implements OnInit{
   fechaAp;
   bandTest;
   intTime;
+
   constructor(
     private excelService:MainTableService,
     private sis: SharepointIntegrationService, 
@@ -63,6 +66,7 @@ export class AppComponent implements OnInit{
     this.varFromJsFile = window["bandFileUp"];
    
   }
+
   ngOnInit() {
     this.loading=true;
     
@@ -71,6 +75,7 @@ export class AppComponent implements OnInit{
     this.setupForm();
     
   }
+
   /**
    * Gets evidence data 
    */
@@ -122,6 +127,7 @@ export class AppComponent implements OnInit{
       this.checkButtonsFlags();
     });
   }
+
   /**
    * Checks controls flags according to the status
    */
@@ -168,6 +174,7 @@ export class AppComponent implements OnInit{
     }
     console.log("No entre a nada");
   }
+
   /**
    * get courses data
    */
@@ -189,6 +196,7 @@ export class AppComponent implements OnInit{
       response.forEach(c =>this.getCriterios(c))
     });
   }
+
   /**
    * Creates an object of the courses array
    * @param cursos courses array
@@ -207,6 +215,7 @@ export class AppComponent implements OnInit{
       Entrenador: r.Entrenador
     }))
   }
+  
   /**
    * gets Criteria data
    * @param c courso 
@@ -223,6 +232,7 @@ export class AppComponent implements OnInit{
         this.dataCourse.push(c);
     })
   }
+
   /**
    * get current user information
    */
@@ -268,6 +278,7 @@ export class AppComponent implements OnInit{
       }),
     ).subscribe();
   }
+
   /**
    * gets current user
    */
@@ -280,19 +291,21 @@ export class AppComponent implements OnInit{
       this.getUser();
     })
   }
-  
+
   /**
    * disables all form controls
    */
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
+
   /**
    * enables all form controls
    */
   enableFields() {
     this.fs.enableFields(this.mainForm);
   }
+
   /**
    * Reads selected files to upload
    * @param event selected file control event
@@ -471,6 +484,7 @@ export class AppComponent implements OnInit{
     */
     
   }
+
   /**
    * Deletes a file from de array 
    * @param index array index to delete
@@ -484,6 +498,7 @@ export class AppComponent implements OnInit{
     //console.log(this.files);
 
   }
+
   /**
    * Submit data introduced by the user
    * @param e new status
@@ -581,6 +596,7 @@ export class AppComponent implements OnInit{
       );
     }
   }
+
   /**
    * Setups the form with its validations for each control 
    */
@@ -595,6 +611,4 @@ export class AppComponent implements OnInit{
     });
     this.loading=false;
   }
-
-
 }

@@ -14,6 +14,7 @@ import { MainTableService } from '../../../services/main-table.service';
   templateUrl: './main-form.component.html',
   styleUrls: ['./main-form.component.scss']
 })
+
 export class MainFormComponent implements OnInit {
   @Input() data: any;
   fields: any = {};
@@ -51,6 +52,7 @@ export class MainFormComponent implements OnInit {
       this.checkDuplicate(v);
     });
   }
+
   // Custom public methods
   /**
    * Gets all Roles items
@@ -68,6 +70,7 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+
     /**
    * Checks for duplicated items
    * @param newCriteria new Role item
@@ -105,12 +108,14 @@ export class MainFormComponent implements OnInit {
     }
     
   }
+
   /**
  * Disable all controls on the form
  */
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
+
  /**
    * enable all controls on the form
    */
@@ -118,7 +123,7 @@ export class MainFormComponent implements OnInit {
     this.fs.enableFields(this.mainForm);
   }
 
-    /**
+  /**
    * Submits Role information introduced by the users
    */
 
@@ -140,6 +145,7 @@ export class MainFormComponent implements OnInit {
       })
     );
   }
+  
    // Custom private methods
   /**
    * Setups the form with its validations for each control 

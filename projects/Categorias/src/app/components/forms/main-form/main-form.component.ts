@@ -8,12 +8,16 @@ import { MainTableService } from '../../../services/main-table.service';
 
 /**
  * Main Form Component
+ * Codigo DFSE 29/03/2021
+ * Creado por Transom-Group
+ * version 1.0
  */
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
   styleUrls: ['./main-form.component.scss']
 })
+
 export class MainFormComponent implements OnInit {
   @Input() data: any;
   fields: any = {};
@@ -51,6 +55,7 @@ export class MainFormComponent implements OnInit {
       this.checkDuplicate(v);
     })
   }
+
   // Custom public methods
   /**
    * Gets all Categorie items
@@ -68,6 +73,7 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+
   /**
    * Checks for duplicated items
    * @param newCriteria new Categoria item
@@ -111,6 +117,7 @@ export class MainFormComponent implements OnInit {
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
+
   /**
    * enable all controls on the form
    */
@@ -118,7 +125,6 @@ export class MainFormComponent implements OnInit {
     this.fs.enableFields(this.mainForm);
   }
 
-  
   /**
    * Submits Categoria information introduced by the users
    */
@@ -159,6 +165,4 @@ export class MainFormComponent implements OnInit {
       });
     }
   }
-
-
 }

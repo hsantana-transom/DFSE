@@ -67,6 +67,7 @@ export class MainTableComponent implements OnInit {
       search: null
     });
   }
+
   /**
   * calls event whether the user clicks edit or delete on the table
   */
@@ -109,6 +110,7 @@ export class MainTableComponent implements OnInit {
       }
     });
   }
+
   /**
    * Opens Form Dialog with item information to edit
    * @param item item to edit 
@@ -126,6 +128,7 @@ export class MainTableComponent implements OnInit {
         }
       });
   }
+
   /**
    * Gets Rol Data filtered by the search string
    */
@@ -160,6 +163,7 @@ export class MainTableComponent implements OnInit {
   }
 
 }
+
 /**
  * Columns to show in the table
  */

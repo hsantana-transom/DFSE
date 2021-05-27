@@ -5,7 +5,7 @@
       <tr>
         <td><strong>Nombre:</strong> {{dataUser[0]?.Nombre}}</td>
         <td><strong>Email:</strong>{{dataUser[0]?.Email}}</td>
-        <td><strong>Porcentaje completado:</strong> {{porcentajeGlobal/nCourses | number: '1.2-2'}} %</td>
+        <td><strong>Porcentaje:</strong> {{porcentajeGlobal/nCourses | number: '1.2-2'}} %</td>
       </tr>
     </table>
   </div>
@@ -17,30 +17,30 @@
 
 
     <ng-container matColumnDef="Categoria">
-      <th mat-header-cell *matHeaderCellDef> Categoría </th>
-      <td mat-cell *matCellDef="let element" style="font-size: 9px;"> {{element.Categoria}} </td>
+      <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Categoría </th>
+      <td mat-cell *matCellDef="let element" style="font-size: 7px;"> {{element.Categoria}} </td>
     </ng-container>
 
  
     <ng-container matColumnDef="Nivel">
-      <th mat-header-cell *matHeaderCellDef> Nivel </th>
-      <td mat-cell *matCellDef="let element" style="font-size: 9px;"> {{element.Nivel}} </td>
+      <th mat-header-cell *matHeaderCellDef style="width: 10%;"> Nivel </th>
+      <td mat-cell *matCellDef="let element" style="font-size: 8px; text-align: center;"> {{element.Nivel}} </td>
     </ng-container>
 
     
     <ng-container matColumnDef="Topico">
-      <th mat-header-cell *matHeaderCellDef> Tópico </th>
-      <td mat-cell *matCellDef="let element" style="font-size: 10px;"> {{element.Topico}} </td>
+      <th mat-header-cell *matHeaderCellDef style="width: 40%;"> Tópico </th>
+      <td mat-cell *matCellDef="let element" style="font-size: 9px;"> {{element.Topico}} </td>
     </ng-container>
 
     
     <ng-container matColumnDef="Criterio">
-      <th mat-header-cell *matHeaderCellDef> Criterio </th>
+      <th mat-header-cell *matHeaderCellDef style="width: 40%;"> Criterio </th>
       <td mat-cell *matCellDef="let element" style="font-size: 10px;"> {{element.Criterio}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Porcentaje">
-      <th mat-header-cell *matHeaderCellDef> Estatus </th>
+      <th mat-header-cell *matHeaderCellDef style="width: 10%;"> Estatus </th>
       <!--
         <td mat-cell *matCellDef="let element" [ngStyle]="{color: element.porcentaje==='0' ? 'red' : 'green'}"> {{element.porcentaje}} </td>
       -->

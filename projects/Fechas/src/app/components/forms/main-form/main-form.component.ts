@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './main-form.component.html',
   styleUrls: ['./main-form.component.scss']
 })
+
 export class MainFormComponent implements OnInit {
   @Input() data: any;
   fields: any = {};
@@ -50,6 +51,7 @@ export class MainFormComponent implements OnInit {
   fechaString:string;
   minDate: Date;
   shortCriterio:string;
+
   constructor(
     private fb: FormBuilder,
     private fs: FormsService,
@@ -76,6 +78,7 @@ export class MainFormComponent implements OnInit {
     });
     
   }
+
   // Custom public methods
   /**
    * Gets all Courses items
@@ -94,10 +97,11 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
-    /**
+
+  /**
    * Checks for duplicated items
    * @param newFecha new Date item
-   */
+  */
   checkDuplicate(newFecha:string)
   {
     console.log(newFecha);
@@ -134,12 +138,14 @@ export class MainFormComponent implements OnInit {
       }
     }
   }
+
   /**
    * Disable all controls on the form
    */
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
+
   /**
    * enable all controls on the form
    */
@@ -147,11 +153,9 @@ export class MainFormComponent implements OnInit {
     this.fs.enableFields(this.mainForm);
   }
 
-   
   /**
    * Submits Course information introduced by the users
-   */
-
+  */
   submit() {
     const values = this.mainForm.value;
     console.log(values);
@@ -180,10 +184,11 @@ export class MainFormComponent implements OnInit {
       })
     );
   }
-   // Custom private methods
-    /**
-   * Setups the form with its validatios for each control 
-   */
+
+  // Custom private methods
+  /**
+    * Setups the form with its validatios for each control 
+  */
   private setupForm() {
     this.mainForm = this.fb.group({
       id: null,
@@ -217,6 +222,7 @@ export class MainFormComponent implements OnInit {
       });
     }
   }
+
   /**
    * gets all active Categories
    */
@@ -237,6 +243,7 @@ export class MainFormComponent implements OnInit {
     });
 
   }
+
   /**
    * gets all active topics
    */
@@ -257,6 +264,7 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+
   /**
    * gets all active levels
    */
@@ -276,6 +284,7 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+
   /**
    * get all active Criteria
    */
@@ -295,6 +304,7 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+
   /**
    * Gets text from the selected category
    * @param event dropdown select event
@@ -303,7 +313,8 @@ export class MainFormComponent implements OnInit {
   {
     this.categoryText=event.source.triggerValue
   }
-    /**
+
+  /**
    * Gets text from the selected topic
    * @param event dropdown select event
    */
@@ -312,7 +323,8 @@ export class MainFormComponent implements OnInit {
     this.topicText=event.source.triggerValue
     
   }
-    /**
+
+  /**
    * Gets text from the selected level
    * @param event dropdown select event
    */
@@ -320,7 +332,8 @@ export class MainFormComponent implements OnInit {
   {
     this.levelText=event.source.triggerValue
   }
-    /**
+
+  /**
    * Gets text from the selected Criteria
    * @param event dropdown select event
    */
@@ -333,6 +346,7 @@ export class MainFormComponent implements OnInit {
       this.shortCriterio= this.criteriaText
 
   }
+
   /**
    * Gets inactive category when editing item
    */
@@ -353,7 +367,8 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
-    /**
+
+  /**
    * Gets inactive topic when editing item
    */
   checkTopic()
@@ -373,7 +388,8 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
-    /**
+
+  /**
    * Gets inactive level when editing item
    */
   checkLevel()
@@ -393,7 +409,8 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
-    /**
+
+  /**
    * Gets inactive criteria when editing item
    */
   checkCriteria()
@@ -413,7 +430,8 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
-    /**
+
+  /**
    * Gets inactive criteria text data when editing item
    */
   getCriteriaText()
@@ -431,6 +449,4 @@ export class MainFormComponent implements OnInit {
     }
 
     }
-    
-
 }

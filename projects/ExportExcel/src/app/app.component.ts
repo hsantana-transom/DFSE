@@ -7,7 +7,6 @@ import { OnInit } from '@angular/core';
 /**
  * Main app component
  */
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,20 +17,28 @@ export class AppComponent implements OnInit {
   data: any[]=[];
   allData:any[]=[];
   currentYear:string;
-  constructor(private excelService:MainTableService,private sis: SharepointIntegrationService){
+
+  constructor(
+    private excelService:MainTableService,
+    private sis: SharepointIntegrationService
+    )
+  {
   }
+
   ngOnInit() {
     this.currentYear=new Date().getFullYear().toString();
     this.getAllData();
     console.log(this.data);
 
   }
+
   /**
    * calls excel service method to export data
    */
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.data, 'Periodo');
   }
+
   /**
    * gets all Courses items
    */
@@ -56,6 +63,7 @@ export class AppComponent implements OnInit {
       })
     });
   }
+
   /**
    * creates an object of the courses array
    * @param cursos  courses array
@@ -74,6 +82,7 @@ export class AppComponent implements OnInit {
       //Criterio: curso.Criterio.Criterio
     }));
   }
+  
   /**
    * get Criteria information for each Course
    * @param c course data

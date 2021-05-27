@@ -3,9 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Observable, merge, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+
  /**
   * Data Source class
-  */
+*/
 export class MainDataSource extends DataSource<any>  {
     data: any[] = [];
     dataStream = new BehaviorSubject(null);
@@ -15,6 +16,7 @@ export class MainDataSource extends DataSource<any>  {
     constructor() {
       super();
     }
+
     /**
      * Creates a Stream of data
      */
@@ -29,7 +31,10 @@ export class MainDataSource extends DataSource<any>  {
         return this.getPagedData(this.getSortedData([...this.data]));
       }));
     }
-  
+    
+    /**
+     * disconect data stream
+     */
     disconnect() {}
   
     // Custom public methods
@@ -61,6 +66,7 @@ export class MainDataSource extends DataSource<any>  {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
     }
+
     /**
      * Sorts data in the table
      * @param data Categorias data
@@ -81,6 +87,7 @@ export class MainDataSource extends DataSource<any>  {
         }
       });
     }
+
     /**
      * Clears data stream
      */
@@ -88,6 +95,7 @@ export class MainDataSource extends DataSource<any>  {
       this.dataStream.next(null);
     }
   }
+
   /**
    * Compares data to sort
    * @param a data 1 to compare with param b

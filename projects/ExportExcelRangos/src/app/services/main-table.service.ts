@@ -13,6 +13,7 @@ export class MainTableService {
 
   constructor(private sis: SharepointIntegrationService) {
   }
+
     /**
    * Exports data to excel file
    * @param json data array
@@ -24,6 +25,7 @@ export class MainTableService {
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
+
    /**
    * Saves data in excel File
    * @param json data array
@@ -33,6 +35,7 @@ export class MainTableService {
      const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
      FileSaver.saveAs(data, fileName + new  Date().getFullYear() + EXCEL_EXTENSION);
   }
+
   /**
    * Gets courses information data
    * @param id course id
@@ -49,6 +52,7 @@ export class MainTableService {
       return this.sis.read('Fechas', data);
     
   }
+  
   /**
    * gets Criteria information data
    * @param idCriterio id criteria

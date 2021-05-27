@@ -7,22 +7,28 @@ import { MainDataSource } from '../datasources/main-data-source';
 @Injectable({
   providedIn: 'root'
 })
+
 /**
  * Main service
+ * Codigo DFSE 29/03/2021
+   * Creado por Transom-Group
  */
 export class MainTableService {
   dataSource: MainDataSource;
   constructor(private sis: SharepointIntegrationService) {
     this.dataSource = new MainDataSource();
   }
+
   /**
    * Clears data in dataSource array
    */
   clearAll() {
     this.dataSource.clearAll();
   }
+
   /**
    * Gets data from Categorias Sharepoint List
+   * 
    */
   loadData() {
     const data = {
@@ -51,6 +57,7 @@ export class MainTableService {
         })
       );
   }
+
   /**
    * Gets search Data from Categorias Sharepoint list
    * @param search search string to filter query

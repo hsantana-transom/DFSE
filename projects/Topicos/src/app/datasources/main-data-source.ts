@@ -16,6 +16,7 @@ export class MainDataSource extends DataSource<any>  {
     constructor() {
       super();
     }
+
     /**
      * Creates a Stream of data
      */
@@ -30,7 +31,10 @@ export class MainDataSource extends DataSource<any>  {
         return this.getPagedData(this.getSortedData([...this.data]));
       }));
     }
-  
+
+    /**
+     * Disconnects data stream
+     */
     disconnect() {}
   
     // Custom public methods
@@ -41,6 +45,7 @@ export class MainDataSource extends DataSource<any>  {
       this.data = [];
       this.trigger();
     }
+
    /**
      * replace data array with the new data
      * @param newData new data recieved
@@ -59,6 +64,7 @@ export class MainDataSource extends DataSource<any>  {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
     }
+
       /**
      * Sorts data in the table
      * @param data Topic data
@@ -79,6 +85,7 @@ export class MainDataSource extends DataSource<any>  {
         }
       });
     }
+
     /**
      * Clears data stream
      */
@@ -86,13 +93,13 @@ export class MainDataSource extends DataSource<any>  {
       this.dataStream.next(null);
     }
   }
+
     /**
    * Compares data to sort
    * @param a data 1 to compare with param b
    * @param b data 2 to compare with param a
    * @param isAsc  boolean to sort ascendent or descendent
    */
-
   function compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }

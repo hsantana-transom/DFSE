@@ -64,6 +64,7 @@ export class MainTableComponent implements OnInit {
       this.SearchData();
     }
   }
+
   /**
    * setup for serch control
    */
@@ -73,6 +74,7 @@ export class MainTableComponent implements OnInit {
       search: null
     });
   }
+
   // Custom public methods
   /**
    * calls event whether the user clicks edit or delete on the table
@@ -90,10 +92,10 @@ export class MainTableComponent implements OnInit {
   }
 
   // Custom private methods
-/**
- * Deletes a Criterio Item
- * @param item item to delete
- */
+  /**
+   * Deletes a Criterio Item
+   * @param item item to delete
+  */
   private onDelete(item: any) {
     this.message.confirm({
       text: '¿Desea eliminar?',
@@ -117,6 +119,7 @@ export class MainTableComponent implements OnInit {
       }
     });
   }
+
   /**
    * Opens Form Dialog with item information to edit
    * @param item item to edit 
@@ -134,6 +137,7 @@ export class MainTableComponent implements OnInit {
         }
       });
   }
+
   /**
    * Gets Criterios Data filtered by the search string
    */
@@ -149,6 +153,7 @@ export class MainTableComponent implements OnInit {
         () => {this.loading = false; this.bandClear=true}
       );
   }
+
   /**
    * Clears search data
    */
@@ -167,6 +172,7 @@ export class MainTableComponent implements OnInit {
   }
 
 }
+
 /**
  * Columns to show in the table
  */

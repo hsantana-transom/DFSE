@@ -30,17 +30,19 @@ export class AppComponent implements OnInit{
   nCourses;
   dataEvidenciaAprobador:any=[];
   loading = false;
+
   constructor(
     private sis: SharepointIntegrationService, 
     private fb: FormBuilder,
     private fs: FormsService,
     private message: MessageService,
     private snackbar: MatSnackBar
-    )
-    {
-      this.currentYear= new Date().getFullYear();
-      this.getCurrentUser();
-    }
+  )
+  {
+    this.currentYear= new Date().getFullYear();
+    this.getCurrentUser();
+  }
+
   ngOnInit() {
     this.loading=true;
     /*const dataEvidencia={
@@ -50,6 +52,7 @@ export class AppComponent implements OnInit{
     this.sis.read('Entrada',dataEvidencia).subscribe(res=>console.log(res));
     */
   }
+
   /**
    * gets all Courses items
    */
@@ -75,6 +78,7 @@ export class AppComponent implements OnInit{
       })
     });
   }
+
   /**
    * Creates an object of the courses array items
    * @param courses courses items
@@ -90,6 +94,7 @@ export class AppComponent implements OnInit{
 
     }));
   }
+
   /**
    * Gets Evidence data for each course
    * @param course course data
@@ -124,6 +129,7 @@ export class AppComponent implements OnInit{
       this.loading=false;
     });
   }
+
   /**
    * gets Current user logged in
    */
@@ -136,6 +142,7 @@ export class AppComponent implements OnInit{
       this.getUser();
     })
   }
+
   /**
    * Gets Current user information
    */
@@ -161,6 +168,7 @@ export class AppComponent implements OnInit{
         
     });//r=>this.getCourses());
   }
+
   /**
    * Creates an object of the users array data
    * @param users users array
@@ -175,6 +183,7 @@ export class AppComponent implements OnInit{
       Rol: r.Rol.Nombre
     }));
   }
+
   /**
    * Gets evidences that needs approval
    */
@@ -208,6 +217,7 @@ export class AppComponent implements OnInit{
     });
 
   }
+  
   /** 
    * Creates an object of the Evidences to approve array items 
    *  @param evidencias Evidences array

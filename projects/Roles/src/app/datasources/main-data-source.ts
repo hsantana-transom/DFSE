@@ -16,6 +16,7 @@ export class MainDataSource extends DataSource<any>  {
   constructor() {
     super();
   }
+
   /**
    * Creates a Stream of data
    */
@@ -34,13 +35,14 @@ export class MainDataSource extends DataSource<any>  {
   disconnect() {}
 
   // Custom public methods
-    /**
+  /**
    * clears data array
    */
   clearAll() {
     this.data = [];
     this.trigger();
   }
+
   /**
    * replace data array with the new data
    * @param newData new data recieved
@@ -59,10 +61,11 @@ export class MainDataSource extends DataSource<any>  {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
-    /**
-     * Sorts data in the table
-     * @param data Roles data
-     */
+
+  /**
+   * Sorts data in the table
+   * @param data Roles data
+   */
   private getSortedData(data: any[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
@@ -86,6 +89,7 @@ export class MainDataSource extends DataSource<any>  {
     this.dataStream.next(null);
   }
 }
+
   /**
    * Compares data to sort
    * @param a data 1 to compare with param b

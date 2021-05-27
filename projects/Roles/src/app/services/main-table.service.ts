@@ -13,15 +13,18 @@ import { MainDataSource } from '../datasources/main-data-source';
 export class MainTableService {
 
   dataSource: MainDataSource;
+
   constructor(private sis: SharepointIntegrationService) {
     this.dataSource = new MainDataSource();
   }
+
   /**
    * Clears data in dataSource array
    */
   clearAll() {
     this.dataSource.clearAll();
   }
+
   /**
    * Gets data from Rol Sharepoint List
    */
@@ -52,6 +55,7 @@ export class MainTableService {
         })
       );
   }
+  
   /**
    * Gets search Data from Rol Sharepoint list
    * @param search search string to filter query

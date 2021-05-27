@@ -16,6 +16,7 @@ import { MainTableService } from './services/main-table.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit{
 
   mainForm: FormGroup;
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit{
   fechaFString:string;
   bandFechas=false;
   loading = false;
+
   constructor(
     private fb: FormBuilder,
     private fs: FormsService,
@@ -38,6 +40,7 @@ export class AppComponent implements OnInit{
   ) { 
     this.getCurrentUser();
   }
+
   ngOnInit() {
     this.currentYear = new Date().getFullYear();
     const datePipe = new DatePipe('en-US');
@@ -51,12 +54,14 @@ export class AppComponent implements OnInit{
       this.verificaFechas();
     });
   }
+
   /**
    * calls excel service method to export data
    */
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.data, 'Cursos aprobados - Periodo');
   }
+
   /**
    * checks the two selected dates
    */
@@ -70,6 +75,7 @@ export class AppComponent implements OnInit{
         this.bandFechas=false;
     }
   }
+
   /**
    * Gets data to export
    */
@@ -125,6 +131,7 @@ export class AppComponent implements OnInit{
       this.loading=false;
     });
   }
+
   /**
    * Creates an object with curses array
    * @param cursos courses array
@@ -151,6 +158,7 @@ export class AppComponent implements OnInit{
       }))
     }
   }
+
   /**
    * gets cursos information data
    * @param cursos courses array
@@ -172,10 +180,9 @@ export class AppComponent implements OnInit{
       this.loading=false;
       return cursos;
     }
-    
-    
 
   }
+
   /**
    * gets Criteria information data
    * @param cursos courses array
@@ -195,6 +202,7 @@ export class AppComponent implements OnInit{
     return cursos;
 
   }
+
   /**
    * gets current user logged in
    */
@@ -207,6 +215,7 @@ export class AppComponent implements OnInit{
       this.getUser();
     })
   }
+
   /**
    * Gets user information logged in
    */
@@ -228,6 +237,7 @@ export class AppComponent implements OnInit{
         
     });//r=>this.getCourses());
   }
+
   /**
    * Creates an object of the user array
    * @param users user information array
@@ -241,6 +251,7 @@ export class AppComponent implements OnInit{
       Rol: r.Rol.Nombre
     }));
   }
+
   /**
    * Initialize the form with controls and validations
    */

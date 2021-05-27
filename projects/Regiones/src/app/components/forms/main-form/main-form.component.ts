@@ -37,6 +37,7 @@ export class MainFormComponent implements OnInit {
   bandDuplicado=false;
   bandDuplicadoCode=false;
   allData:[]=[];
+
   constructor(
     private fb: FormBuilder,
     private fs: FormsService,
@@ -56,6 +57,7 @@ export class MainFormComponent implements OnInit {
     });
   */
   }
+
   // Custom public methods
     /**
    * Gets all Region items
@@ -150,6 +152,7 @@ export class MainFormComponent implements OnInit {
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
+
   /**
    * enable all controls on the form
    */
@@ -180,6 +183,7 @@ export class MainFormComponent implements OnInit {
       })
     );
   }
+  
    // Custom private methods
   /**
    * Setups the form with its validations for each control 

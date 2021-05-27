@@ -9,12 +9,15 @@ import {FormGroup,FormBuilder} from '@angular/forms';
 
 /**
  * main table component
+ * Codigo DFSE 29/03/2021
+   * Creado por Transom-Group
  */
 @Component({
   selector: 'app-main-table',
   templateUrl: './main-table.component.html',
   styleUrls: ['./main-table.component.scss']
 })
+
 export class MainTableComponent implements OnInit {
   columns = COLUMNS;
   displayedColumns = ['id', 'name','status', 'operations'];
@@ -24,6 +27,7 @@ export class MainTableComponent implements OnInit {
   searchForm:FormGroup;
   bandClear=false;
   bandSearch=false;
+
   constructor(
     private dialog: MatDialog,
     private message: MessageService,
@@ -63,6 +67,7 @@ export class MainTableComponent implements OnInit {
       this.SearchData();
     }
   }
+
   /**
    * setup for serch control
    */
@@ -72,10 +77,11 @@ export class MainTableComponent implements OnInit {
       search: null
     });
   }
+
   // Custom public methods
-/**
- * calls event whether the user clicks edit or delete on the table
- */
+  /**
+   * calls event whether the user clicks edit or delete on the table
+   */
   onOperation(event) {
     switch (event.operation) {
      /* case 'delete':
@@ -89,10 +95,10 @@ export class MainTableComponent implements OnInit {
   }
 
   // Custom private methods
-/**
- * Deletes a Categoria Item
- * @param item item to delete
- */
+  /**
+   * Deletes a Categoria Item
+   * @param item item to delete
+   */
   private onDelete(item: any) {
     this.message.confirm({
       text: '¿Desea eliminar?',
@@ -116,10 +122,11 @@ export class MainTableComponent implements OnInit {
       }
     });
   }
-/**
- * Opens Form Dialog with item information to edit
- * @param item item to edit 
- */
+
+  /**
+   * Opens Form Dialog with item information to edit
+   * @param item item to edit 
+  */
   private onEdit(item: any) {
     const dialogRef = this.dialog.open(MainFormDialogComponent, {
       data: item,
@@ -133,6 +140,7 @@ export class MainTableComponent implements OnInit {
         }
       });
   }
+
   /**
    * Gets Categoria Data filtered by the search string
    */
@@ -148,6 +156,7 @@ export class MainTableComponent implements OnInit {
         () => {this.loading = false; this.bandClear=true}
       );
   }
+
   /**
    * Clears search data
    */
@@ -166,6 +175,7 @@ export class MainTableComponent implements OnInit {
   }
 
 }
+
 /**
  * Columns to show in the table
  */

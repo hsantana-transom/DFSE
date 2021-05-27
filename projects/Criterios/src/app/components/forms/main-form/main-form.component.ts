@@ -51,6 +51,7 @@ export class MainFormComponent implements OnInit {
       this.checkDuplicate(v);
     })
   }
+
   // Custom public methods
     
   /**
@@ -69,6 +70,7 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+
    /**
    * Checks for duplicated items
    * @param newCriteria new Criteria item
@@ -105,12 +107,14 @@ export class MainFormComponent implements OnInit {
       }
     }
   }
+
   /**
  * Disable all controls on the form
  */
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
+
   /**
    * enable all controls on the form
    */
@@ -123,9 +127,15 @@ export class MainFormComponent implements OnInit {
    */
   submit() {
     const values = this.mainForm.value;
+    var shortCriterio;
+    if(values.name.length > 200)
+    shortCriterio= values.name.substring(0,200) + '...'
+    else
+      shortCriterio= values.name;
     const data: any = {
       __metadata: { type: 'SP.Data.CriteriosListItem' },
       Criterio: values.name.toUpperCase(),
+      CriterioCorto: shortCriterio.toUpperCase(),
       Estatus: values.status
     };
 
@@ -139,7 +149,8 @@ export class MainFormComponent implements OnInit {
       })
     );
   }
-   // Custom private methods
+
+  // Custom private methods
   /**
    * Setups the form with its validatios for each control 
    */

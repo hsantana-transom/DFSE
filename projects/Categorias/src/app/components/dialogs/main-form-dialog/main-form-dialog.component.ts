@@ -6,6 +6,9 @@ import { MainTableService } from '../../../services/main-table.service';
 
 /**
  * Main Dialog Component
+ * Codigo DFSE 29/03/2021
+ * Creado por Transom-Group
+ * version 1.0
  */
 @Component({
   selector: 'app-main-form-dialog',

@@ -10,11 +10,14 @@ import { MainDataSource } from '../datasources/main-data-source';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MainTableService {
   dataSource: MainDataSource;
+
   constructor(private sis: SharepointIntegrationService) {
     this.dataSource = new MainDataSource();
   }
+
     /**
    * Clears data in dataSource array
    */
@@ -52,6 +55,7 @@ export class MainTableService {
         })
       );
   }
+  
   /**
    * Gets search Data from Topics Sharepoint list
    * @param search search string to filter query

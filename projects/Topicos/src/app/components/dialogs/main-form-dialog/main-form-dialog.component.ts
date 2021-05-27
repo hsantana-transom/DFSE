@@ -31,7 +31,8 @@ export class MainFormDialogComponent implements OnInit {
     this.title = this.data ? 'Editar' : 'Agregar';
 
   }
-    /**
+  
+  /**
    * Closes dialog
    */
   onClose() {

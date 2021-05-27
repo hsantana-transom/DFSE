@@ -48,6 +48,7 @@ export class MainFormComponent implements OnInit {
   SelectedRol: string;
   oldRol:string;
   filteredOptions: Observable<string[]>;
+
   constructor(
     private fb: FormBuilder,
     private fs: FormsService,
@@ -70,11 +71,11 @@ export class MainFormComponent implements OnInit {
       this.checkDuplicate(v,'email');
     })
   }
+
   // Custom public methods
   /**
    * Gets all User items
    */
-
   getAllData()
   {
     const data={
@@ -89,6 +90,7 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+
   /**
    * Checks for duplicated items
    * @param newCriteria new User item
@@ -163,7 +165,6 @@ export class MainFormComponent implements OnInit {
     this.fs.enableFields(this.mainForm);
   }
 
-  
   /**
    * Submits User information introduced by the users
    */
@@ -484,6 +485,7 @@ export class MainFormComponent implements OnInit {
       
     }
   }
+
   /**
    * checks current user role
    */
@@ -504,6 +506,7 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
+
   /**
    * checks inactive selected region when editing an item
    */
@@ -526,6 +529,7 @@ export class MainFormComponent implements OnInit {
       }
     })
   }
+
   /**
    * get all active roles items
    */
@@ -546,6 +550,7 @@ export class MainFormComponent implements OnInit {
     });
     
   }
+
   /**
    * get all active region items
    */
@@ -568,6 +573,7 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
+
   /**
    * Checks the type of user selected
    * @param e dropdown select event value
@@ -587,6 +593,7 @@ export class MainFormComponent implements OnInit {
       this.bandTipo=false;
     }
   }
+
   /**
    * gets the value text of the selected Rol
    * @param e dropdown select event value
@@ -599,6 +606,7 @@ export class MainFormComponent implements OnInit {
       this.oldRol= this.SelectedRol;
 
   }
+
   /**
    * gets user email
    */
@@ -606,6 +614,7 @@ export class MainFormComponent implements OnInit {
   {
     return this.mainForm.get('email');
   }
+  
   /**
    * gets user's supervisor email
    */

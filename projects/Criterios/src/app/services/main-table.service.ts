@@ -58,9 +58,9 @@ export class MainTableService {
    * @param search search string to filter query
    */
   loadSearch(search) {
-    var fields=['Id','Criterio','Estatus']
+    var fields=['Id','CriterioCorto','Estatus']
     const data = {
-      select: ['Criterio', 'Id', 'Estatus', 'Created'],
+      select: ['Criterio', 'Id', 'Estatus','CriterioCorto', 'Created'],
       top: 5000,
       filter:fields.map(f => `substringof('${search}',${f})`)//["substringof('" + search + "',Criterio)"] 
     };

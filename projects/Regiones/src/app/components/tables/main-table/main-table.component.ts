@@ -11,12 +11,12 @@ import {FormGroup,FormBuilder} from '@angular/forms';
 /**
  * main table component
  */
-
 @Component({
   selector: 'app-main-table',
   templateUrl: './main-table.component.html',
   styleUrls: ['./main-table.component.scss']
 })
+
 export class MainTableComponent implements OnInit {
   columns = COLUMNS;
   displayedColumns = ['id', 'name', 'code','country', 'status', 'operations'];
@@ -26,6 +26,7 @@ export class MainTableComponent implements OnInit {
   searchForm:FormGroup;
   bandClear=false;
   bandSearch=false;
+
   constructor(
     private dialog: MatDialog,
     private message: MessageService,
@@ -75,6 +76,7 @@ export class MainTableComponent implements OnInit {
       search: null
     });
   }
+
   // Custom public methods
 
   /**
@@ -93,10 +95,10 @@ export class MainTableComponent implements OnInit {
   }
 
   // Custom private methods
-/**
- * Deletes a Region Item
- * @param item item to delete
- */
+  /**
+   * Deletes a Region Item
+   * @param item item to delete
+   */
   private onDelete(item: any) {
     this.message.confirm({
       text: '¿Desea eliminar?',
@@ -120,6 +122,7 @@ export class MainTableComponent implements OnInit {
       }
     });
   }
+
 /**
  * Opens Form Dialog with item information to edit
  * @param item item to edit 
@@ -137,7 +140,8 @@ export class MainTableComponent implements OnInit {
         }
       });
   }
-    /**
+
+  /**
    * Gets Region Data filtered by the search string
    */
   SearchData()
@@ -152,6 +156,7 @@ export class MainTableComponent implements OnInit {
         () => {this.loading = false; this.bandClear=true}
       );
   }
+
   /**
    * clears search Data
    */
@@ -170,6 +175,7 @@ export class MainTableComponent implements OnInit {
   }
 
 }
+
 /**
  * Columns to show in the table
  */

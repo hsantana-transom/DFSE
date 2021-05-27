@@ -15,12 +15,14 @@ export class MainTableService {
   constructor(private sis: SharepointIntegrationService) {
     this.dataSource = new MainDataSource();
   }
+
   /**
    * Clears data in dataSource array
    */
   clearAll() {
     this.dataSource.clearAll();
   }
+
   /**
    * Gets data from User Sharepoint List
    */
@@ -62,12 +64,13 @@ export class MainTableService {
         })
       );
   }
+
   /**
    * Gets search Data from User Sharepoint list
    * @param search search string to filter query
    */
   loadSearch(search) {
-    var fields=['Nombre','Email','Rol/Nombre','Tipo','Estatus',]
+    var fields=['Id','Nombre','Email','Rol/Nombre','Tipo','Estatus']
     const data = {
       select: ['WWID', 'Email','Escalacion','WWIDSupervisor','EmailEscalacion','Tipo','Estatus','Nombre','RolId','Rol/Nombre','CodigoRegionId', 'CodigoRegion/Codigo', 'Id', 'Created'],
       top: 5000,

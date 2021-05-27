@@ -12,6 +12,7 @@ import { MainTableService } from '../../../services/main-table.service';
   templateUrl: './main-form-dialog.component.html',
   styleUrls: ['./main-form-dialog.component.scss']
 })
+
 export class MainFormDialogComponent implements OnInit {
   loading = false;
   @ViewChild(MainFormComponent, { static: false }) mfc: MainFormComponent;
@@ -30,9 +31,10 @@ export class MainFormDialogComponent implements OnInit {
     this.title = this.data ? 'Editar' : 'Agregar';
 
   }
-    /**
+
+  /**
    * Closes dialog
-   */
+  */
   onClose() {
     this.dialogRef.close();
   }

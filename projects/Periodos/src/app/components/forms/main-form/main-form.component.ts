@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './main-form.component.html',
   styleUrls: ['./main-form.component.scss']
 })
+
 export class MainFormComponent implements OnInit {
 
   @Input() data: any;
@@ -67,6 +68,7 @@ export class MainFormComponent implements OnInit {
       this.verificaFechas();
     });
   }
+
   // Custom public methods
   /**
    * checks Dates
@@ -81,6 +83,7 @@ export class MainFormComponent implements OnInit {
         this.bandFechas=false;
     }
   }
+
   /**
    * Gets all Period items
    */
@@ -97,7 +100,8 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
-    /**
+
+  /**
    * Checks for duplicated items
    * @param newCriteria new Period item
    */
@@ -140,6 +144,7 @@ export class MainFormComponent implements OnInit {
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
+
   /**
    * enable all controls on the form
    */
@@ -147,8 +152,7 @@ export class MainFormComponent implements OnInit {
     this.fs.enableFields(this.mainForm);
   }
 
-  
-    /**
+  /**
    * Submits Level information introduced by the users
    */
   submit() {
@@ -172,6 +176,7 @@ export class MainFormComponent implements OnInit {
       })
     );
   }
+  
    // Custom private methods
   /**
    * Setups the form with its validations for each control 

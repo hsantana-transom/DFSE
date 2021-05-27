@@ -8,6 +8,7 @@ import { MainFormDialogComponent } from './components/dialogs/main-form-dialog/m
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   constructor(
     private dialog: MatDialog,

@@ -24,6 +24,7 @@ export class MainTableComponent implements OnInit {
   searchForm:FormGroup;
   bandClear=false;
   bandSearch=false;
+
   constructor(
     private dialog: MatDialog,
     private message: MessageService,
@@ -63,6 +64,7 @@ export class MainTableComponent implements OnInit {
       this.SearchData();
     }
   }
+
   /**
    * setup for serch control
    */
@@ -72,6 +74,7 @@ export class MainTableComponent implements OnInit {
       search: null
     });
   }
+
   // Custom public methods
   /**
    * calls event whether the user clicks edit or delete on the table
@@ -116,6 +119,7 @@ export class MainTableComponent implements OnInit {
       }
     });
   }
+
   /**
    * Opens Form Dialog with item information to edit
    * @param item item to edit 
@@ -133,6 +137,7 @@ export class MainTableComponent implements OnInit {
         }
       });
   }
+
   /**
    * Gets Topic Data filtered by the search string
    */
@@ -143,11 +148,12 @@ export class MainTableComponent implements OnInit {
     console.log(searchWord);
     this.mts.loadSearch(searchWord)
       .subscribe(
-        () => {},
+        (response) => { console.log(response)},
         err => this.message.genericHttpError(err),
         () => {this.loading = false; this.bandClear=true}
       );
   }
+
   /**
    * clears search Data
    */
@@ -166,6 +172,7 @@ export class MainTableComponent implements OnInit {
   }
 
 }
+
 /**
  * Columns to show in the table
  */

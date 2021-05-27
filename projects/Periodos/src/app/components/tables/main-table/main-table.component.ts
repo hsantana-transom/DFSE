@@ -16,6 +16,7 @@ import {FormGroup,FormBuilder} from '@angular/forms';
   templateUrl: './main-table.component.html',
   styleUrls: ['./main-table.component.scss']
 })
+
 export class MainTableComponent implements OnInit {
   columns = COLUMNS;
   displayedColumns = ['id', 'name','fechaILabel','fechaFLabel', 'operations'];
@@ -57,16 +58,17 @@ export class MainTableComponent implements OnInit {
         () => this.loading = false
       );
   }
-    /**
-   * setup for search control
-   */
 
+  /**
+   * setup for search control
+  */
   setupForm()
   {
     this.searchForm= this.fb.group({
       search: null
     });
   }
+
   // Custom public methods
   /**
    * calls event whether the user clicks edit or delete on the table
@@ -111,7 +113,11 @@ export class MainTableComponent implements OnInit {
       }
     });
   }
-
+  
+  /**
+   * Saves Edited item
+   * @param item item information to edit
+   */
   private onEdit(item: any) {
     const dialogRef = this.dialog.open(MainFormDialogComponent, {
       data: item,
@@ -125,10 +131,11 @@ export class MainTableComponent implements OnInit {
         }
       });
   }
+
   /**
- * Opens Form Dialog with item information to edit
- * @param item item to edit 
- */
+   * Opens Form Dialog with item information to edit
+   * @param item item to edit 
+  */
   SearchData()
   {
     const values = this.searchForm.value;
@@ -141,7 +148,8 @@ export class MainTableComponent implements OnInit {
         () => {this.loading = false; this.bandClear=true}
       );
   }
-    /**
+
+  /**
    * clears search Level Data 
    */
   clearSearch()
@@ -159,6 +167,7 @@ export class MainTableComponent implements OnInit {
   }
 
 }
+
 /**
  * Columns to show in the table
  */

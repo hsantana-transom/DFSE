@@ -15,6 +15,7 @@ import {FormGroup,FormBuilder} from '@angular/forms';
   templateUrl: './main-table.component.html',
   styleUrls: ['./main-table.component.scss']
 })
+
 export class MainTableComponent implements OnInit {
   columns = COLUMNS;
   displayedColumns = ['fechaLabel','categoryName','levelName','topicName','criterioShort', 'operations'];
@@ -24,6 +25,7 @@ export class MainTableComponent implements OnInit {
   searchForm:FormGroup;
   bandClear=false;
   bandSearch=false;
+
   constructor(
     private dialog: MatDialog,
     private message: MessageService,
@@ -56,6 +58,7 @@ export class MainTableComponent implements OnInit {
         () => this.loading = false
       );
   }
+
   /**
    * setup for serch control
    */
@@ -65,10 +68,11 @@ export class MainTableComponent implements OnInit {
       search: null
     });
   }
+
   // Custom public methods
-/**
- * calls event whether the user clicks edit or delete on the table
- */
+  /**
+    * calls event whether the user clicks edit or delete on the table
+  */
   onOperation(event) {
     switch (event.operation) {
      /* case 'delete':
@@ -109,6 +113,7 @@ export class MainTableComponent implements OnInit {
       }
     });
   }
+
   /**
    * Opens Form Dialog with item information to edit
    * @param item item to edit 
@@ -127,6 +132,7 @@ export class MainTableComponent implements OnInit {
         }
       });
   }
+
   /**
    * Gets Courses Data filtered by the search string
    */
@@ -142,6 +148,7 @@ export class MainTableComponent implements OnInit {
         () => {this.loading = false; this.bandClear=true}
       );
   }
+
   /**
    * Clears search data
    */
@@ -160,6 +167,7 @@ export class MainTableComponent implements OnInit {
   }
 
 }
+
 /**
  * Columns to show in the table
  */

@@ -37,6 +37,7 @@ export class MainFormComponent implements OnInit {
   bandLink = false;
   bandDuplicado=false;
   allData:[]=[];
+
   constructor(
     private fb: FormBuilder,
     private fs: FormsService,
@@ -52,6 +53,7 @@ export class MainFormComponent implements OnInit {
       this.checkDuplicate(v);
     })
   }
+
   // Custom public methods
   /**
    * Gets all Level items
@@ -69,7 +71,8 @@ export class MainFormComponent implements OnInit {
       }
     });
   }
-    /**
+
+  /**
    * Checks for duplicated items
    * @param newCriteria new level item
    */
@@ -109,7 +112,6 @@ export class MainFormComponent implements OnInit {
   /**
    * Disable all controls on the form
    */
-
   disableFields() {
     this.fs.disableFields(this.mainForm);
   }
@@ -142,6 +144,7 @@ export class MainFormComponent implements OnInit {
       })
     );
   }
+  
    // Custom private methods
 
   /**

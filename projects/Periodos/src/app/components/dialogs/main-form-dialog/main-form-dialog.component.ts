@@ -12,31 +12,33 @@ import { MainTableService } from '../../../services/main-table.service';
   templateUrl: './main-form-dialog.component.html',
   styleUrls: ['./main-form-dialog.component.scss']
 })
+
 export class MainFormDialogComponent implements OnInit {
 
   loading = false;
   @ViewChild(MainFormComponent, { static: false }) mfc: MainFormComponent;
   title: string;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<MainFormComponent>,
     private message: MessageService,
     private mts: MainTableService,
 
-  ) {
-
-   }
+  ) {}
 
   ngOnInit() {
     this.title = this.data ? 'Editar' : 'Agregar';
 
   }
+
   /**
    * Closes dialog
    */
   onClose() {
     this.dialogRef.close();
   }
+
   /**
    * loads data to main table when new item is submitted
    */
@@ -62,6 +64,4 @@ export class MainFormDialogComponent implements OnInit {
       );
 
   }
-
-
 }
